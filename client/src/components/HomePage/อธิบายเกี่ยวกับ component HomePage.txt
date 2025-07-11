@@ -1,0 +1,4 @@
+เป็น component ที่เกี่ยวกับ Image Slide (ประกาศหน้า HomePage) และ Menu การสอบที่เป็นวงกลมหน้า HomePage
+
+HomePageSlideShow = รูปภาพสไลด์โชว์หน้าหลัก
+HomePageMenuSlide = เมนูการสอบที่เป็นรูปวงกลมกรอบสีน้ำเงิน
