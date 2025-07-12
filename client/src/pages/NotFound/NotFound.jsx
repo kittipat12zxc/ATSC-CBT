@@ -2,7 +2,7 @@ import React from 'react'
 
 function NotFound() {
   return (
-    <div>404 NotFound</div>
+    <div className='flex justify-center items-center h-[calc(100vh-14rem)]'>404 NotFound</div>
   )
 }
 

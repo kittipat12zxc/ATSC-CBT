@@ -35,16 +35,16 @@ function MainExamAnnouncement() {
   ];
 
   return (
-    <div className='w-[90%] mx-auto flex flex-col gap-[3rem] mb-[5rem]'>
+    <div className='w-[90%] mx-auto flex flex-col gap-[3rem] mb-[5rem] '>
       {registrations.map((item, index) => (
         <div
           key={index}
-          className="border-[#082290] border-l-7 pt-[1rem] pb-[3rem] pl-[2rem] bg-[#EFEFEF] relative"
+          className="border-[#082290] border-l-[0.4rem] pt-[1rem] pb-[2rem] xl:pb-[3rem] px-[1rem] xl:pl-[2rem] bg-[#EFEFEF] relative"
         >
-          <h1 className='text-[2rem]'>{item.title}</h1>
-          <p className='text-[1.5rem] font-light'>ช่วงเวลาที่เปิดรับสมัคร : {item.period}</p>
+          <h1 className='text-[1.5rem]  xl:text-[2rem]'>{item.title}</h1>
+          <p className='text-[1rem] xl:text-[1.5rem] font-light'>ช่วงเวลาที่เปิดรับสมัคร : {item.period}</p>
           <a
-            className='text-[1.5rem] bg-[#082290] px-[2rem] text-white absolute bottom-[-1rem]'
+            className='text-[1rem] xl:text-[1.5rem] bg-[#082290]  px-[2rem] text-white absolute  bottom-[-0.7rem] xl:bottom-[-1rem]'
             href={item.link}
           >
             สมัครสอบ
