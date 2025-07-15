@@ -5,7 +5,7 @@ function MainExamAnnouncement() {
   const [registrations, setRegistrations] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/exam-announcements')
+    axios.get('http://localhost:5000/api/registration/')
       .then(response => {
         setRegistrations(response.data);
       })
@@ -27,7 +27,7 @@ function MainExamAnnouncement() {
           </p>
           <a
             className='text-[1rem] xl:text-[1.5rem] bg-[#082290]  px-[2rem] text-white absolute  bottom-[-0.7rem] xl:bottom-[-1rem]'
-            href={`/exam/${item.exam_enrollments_id}`}
+            href={`/DetailRegistration`}
           >
             สมัครสอบ
           </a>
