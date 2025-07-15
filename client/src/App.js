@@ -4,6 +4,7 @@ import Header from './components/Header/PCHeader';
 import Footer from './components/Footer/Footer';
 import HomePage from './pages/main/HomePage/HomePage';
 import MainExamAnnouncement from './pages/registration/MainExamAnnouncement/MainExamAnnouncement';
+import Examinationpage from './pages/registration/Examinationpage/Examinationpage'
 import NotFound from './pages/NotFound/NotFound';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
             <Routes>
               <Route index element={<HomePage />} />
               <Route path='/Exam-Announcement' element={<MainExamAnnouncement />} />
+              <Route path='/Examinationpage' element={<Examinationpage />} />
               <Route path='*' element={<NotFound />} />
             </Routes>
           </main>
