@@ -1,7 +1,11 @@
 import express from 'express';
-import db from '../../models/db.js';
+import db from '../../models/DataBaes.js';
 
 const router = express.Router();
+
+router.get('/', (req, res) => {
+  res.send('ApplyExam API is working!');
+});
 
 router.post('/', (req, res) => {
   const {
