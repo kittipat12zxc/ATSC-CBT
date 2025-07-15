@@ -12,8 +12,4 @@ app.use(express.urlencoded({ limit: '10mb', extended: true }));
 
 
 
-
-
-
-
 app.listen(5000, () => {console.log("Server started on port 5000") })
