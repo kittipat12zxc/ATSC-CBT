@@ -1,0 +1,40 @@
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+
+function MainExamAnnouncement() {
+  const [registrations, setRegistrations] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:5000/api/exam-announcements')
+      .then(response => {
+        setRegistrations(response.data);
+      })
+      .catch(error => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+
+  return (
+    <div className='w-[90%] mx-auto flex flex-col gap-[3rem] mb-[5rem] '>
+      {registrations.map((item, index) => (
+        <div
+          key={index}
+          className="border-[#082290] border-l-[0.4rem] pt-[1rem] pb-[2rem] xl:pb-[3rem] px-[1rem] xl:pl-[2rem] bg-[#EFEFEF] relative"
+        >
+          <h1 className='text-[1.5rem]  xl:text-[2rem]'>{item.title}</h1>
+          <p className='text-[1rem] xl:text-[1.5rem] font-light'>
+            ช่วงเวลาที่เปิดรับสมัคร : {item.start_date}
+          </p>
+          <a
+            className='text-[1rem] xl:text-[1.5rem] bg-[#082290]  px-[2rem] text-white absolute  bottom-[-0.7rem] xl:bottom-[-1rem]'
+            href={`/exam/${item.exam_enrollments_id}`}
+          >
+            สมัครสอบ
+          </a>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export default MainExamAnnouncement;

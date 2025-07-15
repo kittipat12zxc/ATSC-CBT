@@ -1,23 +1,28 @@
-import logo from './logo.svg';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from './components/Header/PCHeader';
+import Footer from './components/Footer/Footer';
+import HomePage from './pages/main/HomePage/HomePage';
+import MainExamAnnouncement from './pages/registration/MainExamAnnouncement/MainExamAnnouncement';
+import NotFound from './pages/NotFound/NotFound';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="bg-blue-500 text-white text-4xl p-8 rounded-xl shadow-lg"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.StrictMode>
+      <Router>
+        <div className="flex flex-col min-h-screen">
+          <Header />
+          <main className="flex-grow">
+            <Routes>
+              <Route index element={<HomePage />} />
+              <Route path='/Exam-Announcement' element={<MainExamAnnouncement />} />
+              <Route path='*' element={<NotFound />} />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+      </Router>
+    </React.StrictMode>
   );
 }
 
