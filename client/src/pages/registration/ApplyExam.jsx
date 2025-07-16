@@ -324,7 +324,7 @@ function ApplyExam() {
             <img
               src="/images/profile.jpg"
               alt="Profile"
-              className="w-30 h-34 object-cover rounded"
+              className="w-25 h-35 object-cover rounded"
             />
           </div>
 
