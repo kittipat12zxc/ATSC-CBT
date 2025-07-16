@@ -22,7 +22,6 @@ services:
     volumes:
       - ./server:/app
       - /app/node_modules
-    command: npm run dev
     
   mysql:
     image: mysql:8.0
@@ -37,6 +36,7 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+      
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     container_name: phpmyadmin
