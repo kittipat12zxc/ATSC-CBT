@@ -7,3 +7,21 @@
 *{
   font-family: "Kanit", sans-serif;
 }
+
+/* ------------------------------- Google translate ------------------------------- */
+.VIpgJd-ZVi9od-ORHb-OEVmcd {
+	display:none;
+}
+
+.VIpgJd-ZVi9od-aZ2wEe-wOHMyf {
+	display:none;
+}
+
+#goog-gt-tt, .goog-te-banner-frame, .goog-te-balloon-frame {
+    display: none !important;
+}
+body {
+    top: 0px !important;
+}
+
+/* ------------------------------- Google translate ------------------------------- */
