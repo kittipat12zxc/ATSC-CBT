@@ -1,5 +1,5 @@
 const express = require('express');
-const db = require('../../models/DataBase.js'); // Import getDB function
+const getDB = require('../../../models/DataBase'); // Import getDB function
 
 const router = express.Router();
 
@@ -16,6 +16,7 @@ router.post('/', async (req, res) => {
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `;
   try {
+    const db = await getDB()
     const [result] = await db.query(sql, [prefix ,firstName, lastName, birthday, thai_id,
     phone_number, email, province, district, Subdistrict,
     zipcode, Additional]);
