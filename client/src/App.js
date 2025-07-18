@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './Components/Header/PCHeader.jsx';
-import Footer from './Components/Footer/Footer.jsx';
+import Header from './components/Header/PCHeader.jsx';
+import Footer from './components/Footer/Footer.jsx';
 import HomePage from './pages/main/HomePage.jsx';
 import MainExamAnnouncement from './pages/registration/MainExamAnnouncement.jsx';
 import Examinationpage from './pages/registration/Examinationpage.jsx';
