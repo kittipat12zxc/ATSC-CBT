@@ -6,7 +6,7 @@ function MenuSlide() {
   const items = [
     { name: "ระบบรับสมัคร", imageUrl: RegisterIcon, link: "/Exam-Announcement" },
     { name: "ระบบ CBT", imageUrl: CBTIcon, link: "/CBT" },
-    // { name: "O-NET", imageUrl: "/images/onet.png", link: "/test3" },
+    { name: "O-NET", imageUrl: "/images/onet.png", link: "/test3" },
     // { name: "V-NET", imageUrl: "/images/vnet.png", link: "/test4" },
     // { name: "B-NET", imageUrl: "/images/bnet.png", link: "/test5" },
     // { name: "I-NET", imageUrl: "/images/inet.png", link: "/test6" },
