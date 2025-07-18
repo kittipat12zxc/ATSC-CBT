@@ -1,18 +1,30 @@
 import React, { useEffect, useState } from "react";
 import RegisterIcon from '../../../../assets/MenuImage/RegisterIcon.png'
 import CBTIcon from '../../../../assets/MenuImage/CBTIcon.png'
+import TOR from '../../../../assets/MenuImage/TOR_Preparation_System.png'
+import Exam_Design_System from '../../../../assets/MenuImage/Exam_Design_System.png'
+import Exam_Printing_and_Preparation_System from '../../../../assets/MenuImage/Exam_Printing_and_Preparation_System.png'
+import Exam_Distribution_System from '../../../../assets/MenuImage/Exam_Distribution_System.png'
+import Exam_Administration_System from '../../../../assets/MenuImage/Exam_Administration_System.png'
+import Exam_Grading_System from '../../../../assets/MenuImage/Exam_Grading_System.png'
+import Result_Announcement_System from '../../../../assets/MenuImage/Result_Announcement_System.png'
+import Evaluation_and_Summary_System from '../../../../assets/MenuImage/Evaluation_and_Summary_System.png'
+
 
 function MenuSlide() {
   const items = [
     { name: "ระบบรับสมัคร", imageUrl: RegisterIcon, link: "/Exam-Announcement" },
     { name: "ระบบ CBT", imageUrl: CBTIcon, link: "/CBT" },
-    { name: "O-NET", imageUrl: "/images/onet.png", link: "/test3" },
-    // { name: "V-NET", imageUrl: "/images/vnet.png", link: "/test4" },
-    // { name: "B-NET", imageUrl: "/images/bnet.png", link: "/test5" },
-    // { name: "I-NET", imageUrl: "/images/inet.png", link: "/test6" },
-    // { name: "N-NET", imageUrl: "/images/nnet.png", link: "/test7" },
-    // { name: "E-SCORE", imageUrl: "/images/escore.png", link: "/test8" },
+    { name: "ระบบการจัดทำ\nขอบเขตของงาน", imageUrl: TOR, link: "/test3" },
+    { name: "ระบบการ\nออกแบบข้อสอบ", imageUrl: Exam_Design_System, link: "/test4" },
+    { name: "ระบบการจัดพิมพ์\nและเตรียมข้อสอบ", imageUrl: Exam_Printing_and_Preparation_System, link: "/test5" },
+    { name: "ระบบการกระจาย\nข้อสอบไปยังสนามสอบ", imageUrl: Exam_Distribution_System, link: "/test6" },
+    { name: "ระบบการจัดสอบจริง", imageUrl: Exam_Administration_System, link: "/test7" },
+    { name: "ระบบการตรวจข้อสอบ", imageUrl: Exam_Grading_System, link: "/test8" },
+    { name: "ระบบการ\nประกาศผลสอบ", imageUrl: Result_Announcement_System, link: "/test8" },
+    { name: "ระบบการ\nประเมินและสรุปผล", imageUrl: Evaluation_and_Summary_System, link: "/test8" },
   ];
+
 
   const [itemsPerPage, setItemsPerPage] = useState(3);
   const [currentPage, setCurrentPage] = useState(0);
@@ -76,19 +88,19 @@ function MenuSlide() {
             {items.map((item, index) => (
               <div
                 key={index}
-                className="flex justify-center items-center p-4"
+                className="flex justify-center items-start p-4 "
                 style={{ width: `${100 / items.length}%` }}
               >
                 <div className="flex justify-center items-center flex-col gap-[5px]">
                   <a href={item.link} className="flex flex-col justify-center items-center">
-                    <div  className="border-[#082290] border-[0.4rem] sm:border-[0.47rem] w-[7rem] h-[7rem] sm:w-[10rem] sm:h-[10rem] rounded-full overflow-hidden hover:-translate-y-1 duration-300 ease-in-out">
+                    <div className="border-[#082290] border-[0.4rem] sm:border-[0.47rem] w-[7rem] h-[7rem] sm:w-[10rem] sm:h-[10rem] rounded-full overflow-hidden hover:-translate-y-1 duration-300 ease-in-out">
                       <img
                         src={item.imageUrl} // Use the imageUrl from your item object
                         alt={item.name}     // Use the name for alt text
                         className="w-full h-full"
                       />
                     </div>
-                    {item.name} {/* Display the name of the item */}
+                    <div className="whitespace-pre-line text-center ">{item.name}</div>
                   </a>
                 </div>
 
