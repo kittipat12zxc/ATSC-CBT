@@ -8,6 +8,9 @@ import Examinationpage from './pages/registration/Examinationpage.jsx';
 import DetailRegistration from './pages/registration/DetailRegistration.jsx';
 import NotFound from './pages/main/NotFound.jsx';
 import ApplyExam from './pages/registration/ApplyExam.jsx'
+import Checkexamstatus from './pages/CBT/Checkexamstatus/Checkexamstatus.jsx';
+import Checkthelist from './pages/CBT/Checkthelist/Checkthelist.jsx';
+import ContacttheDepartment from './pages/CBT/ContacttheDepartment/ContacttheDepartment.jsx';
 
 function App() {
   return (
@@ -22,6 +25,9 @@ function App() {
               <Route path='/Examinationpage' element={<Examinationpage />} />
               <Route path='/DetailRegistration' element={<DetailRegistration />} />
               <Route path="/applyexam" element={<ApplyExam/>} />
+              <Route path="/cbt/Checkexamstatus" element={<Checkexamstatus/>} />
+              <Route path="/cbt/Checkthelist" element={<Checkthelist/>} />
+              <Route path="/cbt/ContacttheDepartment" element={<ContacttheDepartment/>} />
               <Route path='*' element={<NotFound />} />
             </Routes>
           </main>
