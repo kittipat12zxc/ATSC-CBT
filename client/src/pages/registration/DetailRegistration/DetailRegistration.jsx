@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import DetailImageSlider from '../DetailImageSlider/DetailImageSlider';
+import DetailImageSlider from '../../../../src/components/DetailImageSlider/DetailImageSlider';
 import SideBarRegistration from '../../../components/SideBarRegistration/SideBarRegistration'
 import axios from 'axios'; // ไว้ใช้ดึงจาก Backend
 
@@ -9,7 +9,7 @@ function HomePage() {
   const [publicRelations, setPublicRelations] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/public-relations')
+    axios.get('http://localhost:5000/api/registration/public-relations')
       .then(response => {
         setPublicRelations(response.data);
       })
@@ -37,19 +37,28 @@ function HomePage() {
                   ประชาสัมพันธ์
                 </p>
               </div>
+
+          {publicRelations.length === 0 ? (
+            <>
+              <div className="rounded-md bg-[#C0C0C0] w-full h-[140px]"></div>
+              <div className="rounded-md bg-[#C0C0C0] w-full h-[140px]"></div>
+              <div className="rounded-md bg-[#C0C0C0] w-full h-[140px]"></div>
+              <div className="rounded-md bg-[#C0C0C0] w-full h-[140px]"></div>
+            </>
+          ) : (
+            publicRelations.map((item, index) => (
+              <div
+                key={index}
+                className="rounded-md bg-[#C0C0C0] w-full min-h-[140px] p-4"
+              >
+                <h2 className="text-lg font-semibold text-blue-900">{item.News_body}</h2>
+                <p className="text-sm text-gray-800 mt-2">{item.Download_Pdf}</p>
+                <p className="text-sm text-gray-600 mt-1">Date: {item.Date}</p>
+              </div>
+            ))
+          )}
               
-              {/* วนลูป เพื่อดึงข้อมูลมาจาก arrays ของ publicRelations (เป็น arrays จาก mysql) */}
-              {publicRelations.map((item, index) => (
-                <div key={index}className="relative border-l-[5px] border-[#082290] bg-[#C0C0C0] w-full min-h-[140px] p-4">
-                  <h2 className="text-lg font-semibold text-black">{item.News_body}</h2>
-                  <p className="text-sm text-gray-800 mt-2"><span className='font-semibold'>เรื่อง</span> {item.Download_Pdf}</p>
-                  <p className="text-base text-black mt-1 font-semibold">ครั้งที่ {item.Date}</p>
-                  
-                  <div>
-                    <a className='absolute bottom-[-10px] right-4 px-[20px] py-[2px] rounded-3xl bg-[#082290] text-white' href="/">อ่านรายละเอียด</a>
-                  </div>
-                </div>
-              ))}
+              
 
               
 

@@ -1,27 +1,27 @@
 version: '3.8'
 
 services:
-  client:
-    container_name: client
-    build:
-      context: ./client
-      dockerfile: Dockerfile
-    volumes:
-      - ./client:/app
-      - /app/node_modules
-    ports:
-      - "3000:3000"
+  # client:
+  #   container_name: client
+  #   build:
+  #     context: ./client
+  #     dockerfile: Dockerfile
+  #   volumes:
+  #     - ./client:/app
+  #     - /app/node_modules
+  #   ports:
+  #     - "3000:3000"
 
-  server:
-    container_name: server
-    build: ./server
-    ports:
-      - "5000:5000"
-    environment:
-      - PORT=5000
-    volumes:
-      - ./server:/app
-      - /app/node_modules
+  # server:
+  #   container_name: server
+  #   build: ./server
+  #   ports:
+  #     - "5000:5000"
+  #   environment:
+  #     - PORT=5000
+  #   volumes:
+  #     - ./server:/app
+  #     - /app/node_modules
     
   mysql:
     image: mysql:8.0
@@ -29,11 +29,11 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: 2521 
-      MYSQL_DATABASE: computer_base_testing
+      MYSQL_DATABASE: ATSC
       MYSQL_USER: dev
       MYSQL_PASSWORD: 123456
     ports: 
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
   phpmyadmin:
@@ -41,7 +41,7 @@ services:
     container_name: phpmyadmin
     environment:
       PMA_HOST: mysql
-      PMA_PORT: 3306 
+      PMA_PORT: 3306
       PMA_USER: root
       PMA_PASSWORD: 2521 
     ports:
