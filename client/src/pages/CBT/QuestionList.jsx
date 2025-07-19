@@ -1,16 +1,11 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
-
-import ConfirmSend from '../../components/ConfirmSend/ConfirmSend';
+import ConfirmSend from './components/ConfirmSend';
 
 // ฟังค์ชันสุ่มข้อ
 function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];   
-  }
-  return array;
+    return [...array].sort(() => Math.random() - 0.5);
 }
 
 // ฟังค์ชันสุ่มช็อย
@@ -49,18 +44,10 @@ function QuestionForm() {
     const [switchChonies, setSwitchChonies] = useState(false);// เช้คว่ามีข้อช็อยไหม
     const [switchWrite, setSwitchWrite] = useState(false);// เช็คว่ามีข้อเขียนไหม
 
-    // const ExaminationID = sessionStorage.getItem("ExaminationID");
-    // const ExamineeID = sessionStorage.getItem("ExamineeID");
-    // const ExaminationName = sessionStorage.getItem("ExaminationName");
-    // const Total = sessionStorage.getItem("Total");
-
-    const ExaminationID = 686001
-    const ExamineeID = 6611005
-    const ExaminationName = "ความรู้พื้นฐานด้านคอมพิวเตอร์"
-    const Total = 100
-    
-
-
+    const ExaminationID = sessionStorage.getItem("ExaminationID");
+    const ExamineeID = sessionStorage.getItem("ExamineeID");
+    const ExaminationName = sessionStorage.getItem("ExaminationName");
+    const Total = sessionStorage.getItem("Total");
     const navigate = useNavigate();
 
     const now = new Date();
@@ -154,15 +141,16 @@ function QuestionForm() {
 
         // คำนวณคำตอบที่ถูกต้อง
         let accuracy = 0;
+        const score = (Total - shuffledQuestionsWrite.length)/shuffledQuestionsChonies.length
         shuffledQuestionsChonies.forEach((question, index) => {
             if (answersMCQ[index] === question.is_correct.trim()) {
-                accuracy += 1;
+                accuracy += score;
             }
         });
 
-        // ✅ อัปเดต Status เป็น Done
+        // ส่งไปยัง backend
         try {
-            fetch("http://localhost:5000/updateExam", {
+            fetch("http://localhost:5000/api/cbt/updateExam", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -178,7 +166,7 @@ function QuestionForm() {
         console.log("AnswerMCQ:", answersMCQ);
         console.log("Answerssay:", answersEssay);
         console.log("shuffledQuestions:",shuffledQuestionsChonies);
-        navigate("/end", { state: {ExaminationName} });
+        navigate("/doneexam", { state: {ExaminationName} });
     }, [answersMCQ, answersEssay, shuffledQuestionsChonies, shuffledQuestionsWrite, navigate, ExamineeID, ExaminationName, Total, ExaminationID]);
 
     // ⏳ นับถอยหลังเวลา
@@ -353,12 +341,80 @@ function QuestionForm() {
               </div>
             </>
           ) : (
-            // Similar structure for only choice questions (skip for brevity)
-            <></>
+            <>
+              <div className="bg-white rounded-lg shadow-md w-[90%] max-w-[1400px] p-4 my-5 mx-auto border border-gray-300">
+                <p className="block">ตอนที่ 1: ปรนัย </p>
+              </div>
+              <div className="bg-white rounded-lg shadow-md w-[90%] max-w-[1400px] p-4 my-5 mx-auto border border-gray-300">
+                {shuffledQuestionsChonies.map((questions, index) => (
+                  <div
+                    key={index}
+                    id={`question-${index}`}
+                    className={`block pb-5 pl-5 mb-2 mt-2 ${errors[`mcq-${index}`] ? 'border-2 border-red-600' : ''}`}
+                  >
+                    <p className="py-5 text-lg font-semibold">
+                      {index + 1}. {questions.questions_text}
+                    </p>
+                    {typeof questions.image_url === 'string' &&
+                      questions.image_url.startsWith('data:image/') &&
+                      questions.image_url.split(',')[1]?.trim() !== '' && (
+                        <div className="flex min-w-full">
+                          <img src={questions.image_url} alt={`รูปภาพ${index}`} className="w-1/2 h-1/2 ml-[5%] mb-5" />
+                        </div>
+                      )}
+                    <div className="ml-4">
+                      {questions.ShuffledChoices?.filter(choice => choice.value).map((choice, choiceIndex) => (
+                        <label key={choiceIndex} className="text-lg block py-2">
+                          <input
+                            type="radio"
+                            name={`question-mcq-${index}`}
+                            value={choice.value}
+                            checked={answersMCQ[index] === choice.value}
+                            onChange={() => handleMCQAnswerChange(index, choice.value)}
+                            className="scale-[1.8] mr-3"
+                          />
+                          {choice.value}
+                        </label>
+                      ))}
+                    </div>
+                    {errors[`mcq-${index}`] && <p className="text-red-600 font-bold">{errors[`mcq-${index}`]}</p>}
+                  </div>
+                ))}
+              </div>
+            </>
           )
         ) : (
-          // Only essay questions rendering (skip for brevity)
-          <></>
+          <>
+            <div className="bg-white rounded-lg shadow-md w-[90%] max-w-[1400px] p-4 my-5 mx-auto border border-gray-300">
+              <p className="block">ตอนที่ 1: อัตนัย </p>
+            </div>
+            <div className="bg-white rounded-lg shadow-md w-[90%] max-w-[1400px] p-4 my-5 mx-auto border border-gray-300">
+              {shuffledQuestionsWrite.map((question, index) => {
+                const questionNumber = shuffledQuestionsChonies.length + index + 1;
+                return (
+                  <div key={index} id={`essay-${index}`} className="block pb-5 pl-5 mb-2 mt-2">
+                    <p className="py-5 text-lg font-semibold">
+                      {questionNumber}. {question.questions_text}
+                    </p>
+                    {typeof question.image_url === 'string' &&
+                      question.image_url.startsWith('data:image/') &&
+                      question.image_url.split(',')[1]?.trim() !== '' && (
+                        <div className="flex min-w-full">
+                          <img src={question.image_url} alt={`รูปภาพ${index}`} className="w-1/2 h-1/2 ml-[5%] mb-5" />
+                        </div>
+                      )}
+                    <textarea
+                      className="inline-block w-[50vw] border border-black rounded ml-6 text-lg"
+                      name={`question-essay-${questionNumber}`}
+                      value={answersEssay[index] || ''}
+                      onChange={(e) => handleEssayAnswerChange(index, e.target.value)}
+                    />
+                    {errors[`essay-${index}`] && <p className="text-red-600 font-bold">{errors[`essay-${index}`]}</p>}
+                  </div>
+                );
+              })}
+            </div>
+          </>
         )}
 
         <div className="py-3 px-5 w-full text-center">

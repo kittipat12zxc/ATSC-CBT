@@ -1,7 +1,23 @@
-import React from 'react';
-import SDULogo from './DoneExamImage/SDULOGOS.png'
+import React, { useEffect } from "react";
+import SDULogo from './images/SDULOGOS.png'
 
 const DoneExam = () => {
+    const ExaminationName = sessionStorage.getItem("ExaminationName");
+
+        // ✅ ป้องกันการย้อนกลับ
+    useEffect(() => {
+        window.history.pushState(null, "", window.location.href);
+    
+        const handlePopState = () => {
+            window.history.pushState(null, "", window.location.href);
+        };
+    
+        window.addEventListener("popstate", handlePopState);
+    
+        return () => {
+            window.removeEventListener("popstate", handlePopState);
+        };
+    }, []);
   return (
     // ไว้จัดกึงกลาง container
     <div className="flex items-center justify-center min-h-screen bg-gray-100 font-['Sarabun']">
@@ -28,12 +44,12 @@ const DoneExam = () => {
         
         {/* หัวข้อรอง */}
         <p className="mb-8 text-base text-gray-600">
-          แบบทดสอบ: ความรู้คอมพิวเตอร์พื้นฐาน
+          แบบทดสอบ: {ExaminationName}
         </p>
         
         {/* ปุ่มกดกลับไปหน้า... */}
         <a 
-          href="/DetailRegistration" 
+          href="/"
           className="inline-block px-7 py-3 font-medium text-white bg-blue-600 rounded-lg shadow-sm transition-all duration-200 hover:bg-blue-700 hover:-translate-y-0.5"
         >
           ย้อนกลับไปหน้าหลัก
