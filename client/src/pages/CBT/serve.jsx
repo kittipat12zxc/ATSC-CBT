@@ -17,7 +17,7 @@ export default function Serve() {
             </div>
             <div className="text-center">
               <img
-                src='../public/images/Icon3D_Flie.png'
+                src='/images/Icon3D_Flie.png'
                 alt="Icon3DFlie"
                 className="h-[25rem] w-auto mr-4 animate-bounceCustom"
               />
