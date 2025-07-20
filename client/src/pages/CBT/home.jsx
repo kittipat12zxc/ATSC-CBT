@@ -103,7 +103,7 @@ function Home() {
         <div className="max-w-6xl mx-auto px-6 my-4">
           <div className="text-center">
             <img
-              src='../public/images/BackgroundSDU.png'
+              src='/images/BackgroundSDU.png'
               alt="Background SDU"
               className="w-full h-[25rem] rounded-xl shadow-md object-cover"
             />

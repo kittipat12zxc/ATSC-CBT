@@ -7,7 +7,7 @@ function Navbar() {
       {/* Top Section */}
       <div className="flex items-center p-4 bg-white">
         <section className="mr-6">
-          <img src='../../public/images/LogoSDU.png' alt="Logo SDU" className="h-20 w-auto" />
+          <img src='/images/LogoSDU.png' alt="Logo SDU" className="h-20 w-auto" />
         </section>
         <section className="text-[#a08a3a] font-bold">
           <h1 className="text-xl m-0">SDU-Computer Base Testing</h1>
