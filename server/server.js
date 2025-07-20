@@ -1,9 +1,9 @@
-import express from 'express';
-import cors from 'cors';
+const express = require('express');
+const cors = require('cors');
 const app = express(); //create Express App.
 
 // Import routes
-import ApplyExam from './Routes/controllers/ApplyExam.js';
+const ApplyExam = require('./Routes/controllers/ApplyExam.js');
 
 app.use(cors({
     origin: ['http://localhost:3000'], // อนุญาตเฉพาะ origin นี้
