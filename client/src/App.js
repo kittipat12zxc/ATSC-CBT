@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './Components/Header/PCHeader.jsx';
-import Footer from './Components/Footer/Footer.jsx';
+import Header from './components/Header/PCHeader.jsx';
+import Footer from './components/Footer/Footer.jsx';
 import HomePage from './pages/main/HomePage.jsx';
 import MainExamAnnouncement from './pages/registration/MainExamAnnouncement.jsx';
 import Examinationpage from './pages/registration/Examinationpage.jsx';
@@ -12,6 +12,10 @@ import Loginpage from './pages/CBT/Loginpage.jsx';
 import Startingtest from './pages/CBT/Startingtestpage.jsx';
 import QuestionList from './pages/CBT/QuestionList.jsx';
 import DoneExam from './pages/CBT/DoneExam.jsx';
+import ApplyExam from './pages/registration/ApplyExam.jsx'
+import Checkexamstatus from './pages/CBT/Checkexamstatus/Checkexamstatus.jsx';
+import Checkthelist from './pages/CBT/Checkthelist/Checkthelist.jsx';
+import ContacttheDepartment from './pages/CBT/ContacttheDepartment/ContacttheDepartment.jsx';
 
 function App() {
   return (
@@ -30,6 +34,9 @@ function App() {
               <Route path='/startingtest' element={<Startingtest/>} />
               <Route path='/Exam' element={<QuestionList/>} />
               <Route path='/doneexam' element={<DoneExam/>} />
+              <Route path="/cbt/Checkexamstatus" element={<Checkexamstatus/>} />
+              <Route path="/cbt/Checkthelist" element={<Checkthelist/>} />
+              <Route path="/cbt/ContacttheDepartment" element={<ContacttheDepartment/>} />
               <Route path='*' element={<NotFound />} />
             </Routes>
           </main>
