@@ -12,7 +12,6 @@ import Loginpage from './pages/CBT/Loginpage.jsx';
 import Startingtest from './pages/CBT/Startingtestpage.jsx';
 import QuestionList from './pages/CBT/QuestionList.jsx';
 import DoneExam from './pages/CBT/DoneExam.jsx';
-import ApplyExam from './pages/registration/ApplyExam.jsx'
 import Checkexamstatus from './pages/CBT/Checkexamstatus/Checkexamstatus.jsx';
 import Checkthelist from './pages/CBT/Checkthelist/Checkthelist.jsx';
 import ContacttheDepartment from './pages/CBT/ContacttheDepartment/ContacttheDepartment.jsx';
