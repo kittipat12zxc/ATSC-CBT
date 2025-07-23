@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const getDB = require('../../../models/DataBase');
+const getDB = require('../../models/DataBase');
 
 router.post('/', async (req, res) => {
   const { citizenId } = req.body;

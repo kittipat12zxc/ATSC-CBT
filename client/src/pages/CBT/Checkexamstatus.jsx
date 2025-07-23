@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Layout from "../../components/layout/layout";
 
 function Checkexamstatus() {
   const [citizenId, setCitizenId] = useState('');
@@ -28,6 +29,7 @@ function Checkexamstatus() {
   };
 
   return (
+    <Layout>
     <div className='bg-gradient-to-b from-[#5dc7ef] to-white py-[2rem] sm:py-[5rem] min-h-screen'>
       <div className='w-[90%] xl:w-[70%] rounded-lg overflow-hidden mx-auto bg-white'>
         <h1 className='bg-[#368bc1] text-white text-center text-[1.4rem] sm:text-[2rem] py-[0.5rem]'>ตรวจสอบสถานะการสอบ</h1>
@@ -80,6 +82,7 @@ function Checkexamstatus() {
         </div>
       )}
     </div>
+    </Layout>
   );
 }
 

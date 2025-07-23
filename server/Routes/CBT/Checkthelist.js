@@ -1,7 +1,5 @@
 const express = require('express');
-const getDB = require('../../../models/DataBase');
-const cors = require('cors');
-
+const getDB = require('../../models/DataBase');
 const router = express.Router();  // เพิ่มบรรทัดนี้
 
 // ไม่ต้องใช้ app.use(cors()) ที่นี่เพราะทำใน server.js แล้ว

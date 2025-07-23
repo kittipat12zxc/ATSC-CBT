@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Header from '../../components/Header/PCHeader';
+import Footer from '../../components/Footer/Footer';
 
 function MainExamAnnouncement() {
   const [registrations, setRegistrations] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/registration/')
+    axios.get('http://localhost:5000/api/MainExamAnnouncement')
       .then(response => {
         setRegistrations(response.data);
       })
@@ -15,6 +17,10 @@ function MainExamAnnouncement() {
   }, []);
 
   return (
+    <>
+    <div className='flex flex-col min-h-screen'>
+    <Header/>
+    <main className='flex-grow'>
     <div className='w-[90%] mx-auto flex flex-col gap-[3rem] mb-[5rem] '>
       {registrations.map((item, index) => (
         <div
@@ -34,6 +40,10 @@ function MainExamAnnouncement() {
         </div>
       ))}
     </div>
+    </main>
+    <Footer/>
+     </div>
+    </>
   );
 }
 

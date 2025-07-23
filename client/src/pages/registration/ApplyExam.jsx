@@ -1,5 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import Header from "../../components/Header/PCHeader";
+import Footer from "../../components/Footer/Footer";
 
 function ApplyExam() {
   // ใช้ useForm จาก react-hook-form เพื่อจัดการฟอร์ม
@@ -46,6 +48,7 @@ function ApplyExam() {
 
   return (
     <>
+    <Header/>
       <div className="min-h-screen bg-gray-100 flex justify-center items-center p-4 print:hidden">
         <div className="bg-white rounded-md p-6 w-full max-w-6xl shadow-lg">
           {/* Steps */}
@@ -402,6 +405,7 @@ function ApplyExam() {
           </div>
         </div>
       )}
+      <Footer/>
     </>
   );
 }

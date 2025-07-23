@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import DetailImageSlider from './components/DetailImageSlider/DetailImageSlider';
 import SideBarRegistration from './components/SideBarRegistration/SideBarRegistration'
 import axios from 'axios'; // ไว้ใช้ดึงจาก Backend
+import Header from '../../components/Header/PCHeader';
+import Footer from '../../components/Footer/Footer';
 
 // HomePage() ดึงข้อมูลจาก Backend server
 
@@ -21,6 +23,8 @@ function HomePage() {
 // หน้า UX/UI
 
   return (
+    <>
+    <Header/>
     <div className="w-full min-h-screen bg-gray-100">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
         <div className="flex flex-col md:flex-row md:gap-x-8">
@@ -58,6 +62,8 @@ function HomePage() {
         </div>
       </div>
     </div>
+    <Footer/>
+    </>
   );
 }
 

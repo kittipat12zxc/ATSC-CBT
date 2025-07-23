@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Layout from '../../components/layout/layout';
 
 function Checkthelist() {
   const [thaiIdInput, setThaiIdInput] = useState('');
@@ -30,6 +31,7 @@ function Checkthelist() {
   };
 
   return (
+    <Layout>
     <div className="bg-gradient-to-b from-[#5dc7ef] to-white py-[2rem] min-h-screen">
       <div className="flex flex-col justify-start items-center py-[2rem] bg-white w-[95%] sm:w-[80%] mx-auto rounded-[15px] shadow-xl">
         <h1 className="text-[1.5rem] sm:text-[2rem] text-[#368bc1] font-semibold text-center">ตรวจสอบรายชื่อ</h1>
@@ -92,6 +94,7 @@ function Checkthelist() {
         )}
       </div>
     </div>
+    </Layout>
   );
 }
 

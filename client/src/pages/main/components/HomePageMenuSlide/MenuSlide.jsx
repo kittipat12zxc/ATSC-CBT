@@ -14,7 +14,7 @@ import Evaluation_and_Summary_System from '../../../../assets/MenuImage/Evaluati
 function MenuSlide() {
   const items = [
     { name: "ระบบรับสมัคร", imageUrl: RegisterIcon, link: "/Exam-Announcement" },
-    { name: "ระบบ CBT", imageUrl: CBTIcon, link: "/CBT" },
+    { name: "ระบบ CBT", imageUrl: CBTIcon, link: "/CBT/home" },
     { name: "ระบบการจัดทำ\nขอบเขตของงาน", imageUrl: TOR, link: "/test3" },
     { name: "ระบบการ\nออกแบบข้อสอบ", imageUrl: Exam_Design_System, link: "/test4" },
     { name: "ระบบการจัดพิมพ์\nและเตรียมข้อสอบ", imageUrl: Exam_Printing_and_Preparation_System, link: "/test5" },

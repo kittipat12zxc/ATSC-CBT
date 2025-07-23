@@ -9,11 +9,12 @@ import Global from './conponents/contact/global.png'
 import Facebook from './conponents/contact/facebook.png'
 import Instagram from './conponents/contact/instagram.png'
 import Twitter from './conponents/contact/twitter.png'
-
+import Layout from '../../../components/layout/layout'
 
 function ContacttheDepartment() {
     return (
         <>
+        <Layout>
             <div className='bg-gradient-to-b from-[#5dc7ef] to-white py-[2rem] min-h-screen'>
                 <div className='w-[90%] 2xl:w-[70%] bg-white mx-auto p-[1rem] shadow-xl'>
                     <div className='flex 2xl:flex-row flex-col gap-[2rem] 2xl:gap-[0] bg-[#368bc1] p-[1rem] sm:p-[2rem] justify-between items-start 2xl:items-end'>
@@ -84,6 +85,7 @@ function ContacttheDepartment() {
                     </div>
                 </div>
             </div>
+            </Layout>
 
         </>
     )
