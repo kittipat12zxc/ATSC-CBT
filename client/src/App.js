@@ -5,6 +5,7 @@ import Footer from './components/Footer/Footer.jsx';
 import HomePage from './pages/main/HomePage.jsx';
 import MainExamAnnouncement from './pages/registration/MainExamAnnouncement.jsx';
 import Examinationpage from './pages/registration/Examinationpage.jsx';
+import PrintExam from './pages/registration/PrintExam.jsx';
 import DetailRegistration from './pages/registration/DetailRegistration.jsx';
 import NotFound from './pages/main/NotFound.jsx';
 import ApplyExam from './pages/registration/ApplyExam.jsx'
@@ -17,11 +18,11 @@ function App() {
     <React.StrictMode>
       <Router>
         <div className="flex flex-col min-h-screen">
-          <Header />
           <main className="flex-grow">
             <Routes>
               <Route index element={<HomePage />} />
               <Route path='/Exam-Announcement' element={<MainExamAnnouncement />} />
+              <Route path='/RegisterPrint' element={<PrintExam />} /> 
               <Route path='/Examinationpage' element={<Examinationpage />} />
               <Route path='/DetailRegistration' element={<DetailRegistration />} />
               <Route path="/applyexam" element={<ApplyExam/>} />
@@ -31,7 +32,6 @@ function App() {
               <Route path='*' element={<NotFound />} />
             </Routes>
           </main>
-          <Footer />
         </div>
       </Router>
     </React.StrictMode>
