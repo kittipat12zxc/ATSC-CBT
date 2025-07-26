@@ -12,6 +12,17 @@ services:
   #   ports:
   #     - "3000:3000"
 
+  # admin:
+  # container_name: admin
+  # build: 
+  #   context: ./admin
+  #   dockerfile: Dockerfile
+  # ports:
+  #   - "3001:3001"
+  # volumes:
+  #   - ./admin:/app
+  #   - /app/node_modules
+
   # server:
   #   container_name: server
   #   build: ./server

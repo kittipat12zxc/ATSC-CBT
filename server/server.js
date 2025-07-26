@@ -10,7 +10,7 @@ const updateExam = require('./Routes/CBT/controllers/updateExam');
 const explain = require('./Routes/CBT/explain_exam');
 
 app.use(cors({
-    origin: ['http://localhost:3000'],
+    origin: ['http://localhost:3000', 'http://localhost:3001'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
