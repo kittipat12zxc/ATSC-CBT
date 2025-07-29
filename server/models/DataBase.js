@@ -6,7 +6,7 @@ async function getDB() {
         user: 'root',
         password: '2521',
         database: 'ATSC',
-        port: 3306
+        port: 3307
     });
     return connection;
 }
