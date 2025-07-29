@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-
+import { Link } from "react-router-dom";
 // Component
 import Layout from "../../components/layout/layout";
 
@@ -80,6 +80,15 @@ function Announcement({
           </p>
           <p className="ml-4 mb-2">
             <strong>ข้อความท้ายประกาศ:</strong> {footer_message}
+          </p>
+          <p className="ml-4 mb-2">
+            <strong>เข้าสู่หน้าสอบ:</strong>
+            <Link
+                  to="/loginpage"
+                   className="text-blue-600 underline ml-2"
+            >
+              คลิกที่นี่
+            </Link>
           </p>
         </div>
       )}
