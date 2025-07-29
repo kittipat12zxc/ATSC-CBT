@@ -43,13 +43,10 @@ const LeftSideBarAdmin = () => {
         {menuItems.map((item) => (
           <a
             key={item.id}
-            href="#"
+            href="/"
             onClick={() => setActiveItem(item.id)}
             // เพิ่ม relative เพื่อเป็นคอนเทนเนอร์ให้เส้นขีดใต้
-            className={`relative flex items-center rounded-md px-4 py-3 text-base font-medium transition-colors hover:bg-[#3d444a] ${
-              activeItem === item.id ? 'bg-[#343a40]' : ''
-            }`}
-          >
+className={`relative flex items-center rounded-md px-4 py-3 text-base font-medium transition-colors hover:bg-[#3d444a] ${activeItem === item.id ? 'bg-[#343a40]' : ''}`}>
             <span className="mr-4">{item.icon}</span>
             <span>{item.text}</span>
 
@@ -67,7 +64,7 @@ const LeftSideBarAdmin = () => {
       {/* ===== ส่วนท้ายของ Sidebar (ปุ่มออกจากระบบ) - เหมือนเดิม ===== */}
       <div className="p-4">
         <a
-          href="#"
+          href="/LoginAdmin"
           className="flex items-center justify-center rounded-md px-4 py-3 text-base font-medium transition-colors hover:bg-[#3d444a]"
         >
           <span className="mr-3">ออกจากระบบ</span>

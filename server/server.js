@@ -1,16 +1,13 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const path = require('path');
 
 
 // === ROUTES ===
 const MainExamAnnouncement = require('./Routes/registration/MainExamAnnouncement');
 const publicRelationsRoutes = require('./Routes/registration/RegistrationRoute');
 const ApplyExam = require('./Routes/registration/controllers/ApplyExam');
-const path = require('path');
-const MainExamAnnouncement = require('./Routes/registration/MainExamAnnouncement')
-const publicRelationsRoutes = require('./Routes/registration/RegistrationRoute')
-const ApplyExam = require('./Routes/registration/controllers/ApplyExam')
 const Login = require('./Routes/CBT/login');
 const questionlist = require('./Routes/CBT/questionlist');
 const updateExam = require('./Routes/CBT/controllers/updateExam');

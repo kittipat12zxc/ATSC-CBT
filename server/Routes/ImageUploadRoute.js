@@ -38,7 +38,7 @@ router.post('/upload', upload.single('image'), (req, res) => {
   
   // ถ้าอัปโหลดสำเร็จ req.file จะมีข้อมูลของไฟล์นั้นๆ
   // ส่ง URL ของไฟล์ที่อัปโหลดสำเร็จกลับไปให้ client
-  res.json({ imageUrl: `http://localhost:5000/uploads/${req.file.filename}` });
+  res.json({ imageUrl: `http://localhost:5000/images/${req.file.filename}` });
 });
 
 // ใช้ HTTP GET ไปที่ /api/images
@@ -57,7 +57,7 @@ router.get('/images', (req, res) => {
   // แปลง array ของชื่อไฟล์ ให้เป็น array ของ object ที่มี 'name' กับ 'url'
   const imageUrls = files.map(file => ({
     name: file,
-    url: `http://localhost:5000/uploads/${file}`,
+    url: `http://localhost:5000/images/${file}`,
   }));
   
   // ส่ง array ของข้อมูลรูปภาพกลับไป
