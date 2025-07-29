@@ -6,6 +6,8 @@ const publicRelationsRoutes = require('./Routes/registration/RegistrationRoute')
 const ApplyExam = require('./Routes/registration/controllers/ApplyExam')
 const Checkexamstatus = require('./Routes/CBT/Checkexamstatus/Checkexamstatus.js');
 const checkTheListRouter = require('./Routes/CBT/Checkthelist/Checkthelist');
+const PrintExam = require('./Routes/registration/PrintExam')
+
 
 app.use(cors({
     origin: ['http://localhost:3000'],
@@ -16,7 +18,7 @@ app.use(cors({
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
 
-
+app.use('/api/PrintExam/search', PrintExam);   
 app.use('/api/registration', MainExamAnnouncement);
 app.use('/api/registration', publicRelationsRoutes);
 app.use('/applyexam', ApplyExam);
