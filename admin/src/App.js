@@ -6,6 +6,8 @@ import TestRegis from "./pages/registration/RegistrationSystemAdminImg/TestRegis
 
 
 
+import AdminApp from "./pages/registration/AdminApp";
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -13,6 +15,7 @@ export default function App() {
         <Route path="/LoginAdmin" element={<LoginAdmin />}></Route>
         <Route path="/RegistrationSystemAdmin" element={<RegistrationSystemAdmin />}></Route>
         <Route path="/TestRegis/:id" element={<TestRegis />}></Route>
+        <Route path="/AdminApp" element={<AdminApp />}></Route>
       </Routes>
     </BrowserRouter>
   );
@@ -20,3 +23,4 @@ export default function App() {
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<App />);
+
