@@ -44,7 +44,7 @@ router.post('/upload', upload.single('image'), (req, res) => {
 // ใช้ HTTP GET ไปที่ /api/images
 router.get('/images', (req, res) => {
   // หา path จริงๆ ของโฟลเดอร์ uploads (ย้อนกลับไปหนึ่งระดับจาก __dirname แล้วเข้า /uploads)
-  const folder = path.resolve(__dirname, '../uploads');
+  const folder = path.resolve(__dirname, '../../../uploads');
 
   // เช็คก่อนว่าโฟลเดอร์ uploads มีอยู่จริงมั้ย ถ้าไม่มีก็ส่ง array ว่างๆ กลับไป
   if (!fs.existsSync(folder)) {
@@ -67,7 +67,7 @@ router.get('/images', (req, res) => {
 // ใช้ HTTP DELETE ไปที่ /api/images/:filename
 router.delete('/images/:filename', (req, res) => {
   // สร้าง path แบบเต็มไปยังไฟล์ที่ต้องการลบ
-  const filePath = path.join(__dirname, '../uploads', req.params.filename);
+  const filePath = path.join(__dirname, '../../../uploads', req.params.filename);
 
   // เช็คก่อนว่ามีไฟล์นี้อยู่จริงมั้ยใน server
   if (!fs.existsSync(filePath)) {
