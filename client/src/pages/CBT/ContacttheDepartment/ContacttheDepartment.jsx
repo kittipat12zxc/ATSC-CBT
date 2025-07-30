@@ -9,7 +9,7 @@ import Global from './conponents/contact/global.png'
 import Facebook from './conponents/contact/facebook.png'
 import Instagram from './conponents/contact/instagram.png'
 import Twitter from './conponents/contact/twitter.png'
-import Layout from '../../../components/layout/layout'
+import Layout from '../../../Components/layout/layout'
 
 function ContacttheDepartment() {
     return (

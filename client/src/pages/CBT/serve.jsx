@@ -1,5 +1,5 @@
 // Component
-import Layout from "../../components/layout/layout";
+import Layout from "../../Components/layout/layout";
 
 export default function Serve() {
   return (

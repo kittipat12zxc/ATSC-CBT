@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import Layout from "../../components/layout/layout";
+import Layout from "../../Components/layout/layout";
 
 function Checkexamstatus() {
   const [citizenId, setCitizenId] = useState('');

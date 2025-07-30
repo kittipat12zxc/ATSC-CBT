@@ -2,8 +2,8 @@ import React from 'react'
 import SlideShow from './components/HomePageSlideShow/SlideShow'
 import MenuSlide from './components/HomePageMenuSlide/MenuSlide'
 import Vector from '../../assets/Icon/Vector.svg'
-import Header from '../../components/Header/PCHeader'
-import Footer from '../../components/Footer/Footer'
+import Header from '../../Components/Header/PCHeader'
+import Footer from '../../Components/Footer/Footer'
 
 function HomePage() {
   return (

@@ -1,6 +1,6 @@
 import React from 'react'
-import Header from '../../components/Header/PCHeader'
-import Footer from '../../components/Footer/Footer'
+import Header from '../../Components/Header/PCHeader'
+import Footer from '../../Components/Footer/Footer'
 
 function NotFound() {
  

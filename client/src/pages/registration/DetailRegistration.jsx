@@ -3,8 +3,8 @@ import { useLocation } from 'react-router-dom';
 import DetailImageSlider from './components/DetailImageSlider/DetailImageSlider';
 import SideBarRegistration from './components/SideBarRegistration/SideBarRegistration';
 import axios from 'axios';
-import Header from '../../components/Header/PCHeader';
-import Footer from '../../components/Footer/Footer';
+import Header from '../../Components/Header/PCHeader';
+import Footer from '../../Components/Footer/Footer';
 
 // ฟังก์ชันดึง query parameter
 function useQuery() {
