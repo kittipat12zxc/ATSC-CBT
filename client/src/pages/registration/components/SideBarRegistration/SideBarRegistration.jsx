@@ -21,7 +21,7 @@ const SideBarRegistration = () => {
       <a href={withId("/")} className="bg-[#E0E0E0] border-b-2 border-white py-3 px-4 hover:bg-gray-300 transition-colors duration-200">
         ตรวจสอบสถานะการสมัครสอบ
       </a>
-      <a href={withId("/")} className="bg-[#E0E0E0] border-b-2 border-white py-3 px-4 hover:bg-gray-300 transition-colors duration-200">
+      <a href={withId("/RegisterPrint")} className="bg-[#E0E0E0] border-b-2 border-white py-3 px-4 hover:bg-gray-300 transition-colors duration-200">
         พิมพ์ใบสมัคร
       </a>
       <a href={withId("/")} className="bg-[#E0E0E0] border-b-2 border-white py-3 px-4 hover:bg-gray-300 transition-colors duration-200">
