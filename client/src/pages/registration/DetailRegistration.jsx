@@ -41,9 +41,9 @@ function HomePage() {
               {/* วนลูป เพื่อดึงข้อมูลมาจาก arrays ของ publicRelations (เป็น arrays จาก mysql) */}
               {publicRelations.map((item, index) => (
                 <div key={index}className="relative border-l-[5px] border-[#082290] bg-[#C0C0C0] w-full min-h-[140px] p-4">
-                  <h2 className="text-lg font-semibold text-black">{item.News_body}</h2>
-                  <p className="text-sm text-gray-800 mt-2"><span className='font-semibold'>เรื่อง</span> {item.Download_Pdf}</p>
-                  <p className="text-base text-black mt-1 font-semibold">ครั้งที่ {item.Date}</p>
+                  <h2 className="text-lg font-semibold text-black">ประกาศมหาวิทยาลัยสวนดุสิต</h2>
+                  <p className="text-sm text-gray-800 mt-2"><span className='font-semibold'>เรื่อง</span> {item.title}</p>
+                  <p className="text-base text-black mt-1 font-semibold">ครั้งที่ {item.details}</p>
                   
                   <div>
                     <a className='absolute bottom-[-10px] right-4 px-[20px] py-[2px] rounded-3xl bg-[#082290] text-white' href="/">อ่านรายละเอียด</a>

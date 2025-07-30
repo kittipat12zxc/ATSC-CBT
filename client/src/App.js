@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './Components/Header/PCHeader.jsx';
-import Footer from './Components/Footer/Footer.jsx';
+
 import HomePage from './pages/main/HomePage.jsx';
 import MainExamAnnouncement from './pages/registration/MainExamAnnouncement.jsx';
 import Examinationpage from './pages/registration/Examinationpage.jsx';
@@ -18,7 +17,7 @@ function App() {
     <React.StrictMode>
       <Router>
         <div className="flex flex-col min-h-screen">
-          <Header />
+
           <main className="flex-grow">
             <Routes>
               <Route index element={<HomePage />} />
@@ -33,7 +32,7 @@ function App() {
               <Route path='*' element={<NotFound />} />
             </Routes>
           </main>
-          <Footer />
+       
         </div>
       </Router>
     </React.StrictMode>

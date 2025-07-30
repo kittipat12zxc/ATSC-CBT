@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const getDB = require('../../models/DataBase');
 
+
+
 router.get('/', async (req, res) => {
   try {
     const db = await getDB();

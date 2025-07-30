@@ -1,21 +1,23 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import LoginAdmin from "./pages/main/LoginAdmin";
 import ListofNames from './pages/registration/ListofNames';
+import RegistrationSystemAdmin from "./pages/registration/RegistrationSystemAdmin";
+import AdminApp from "./pages/registration/AdminApp";
 
-function App() {
+export default function App() {
   return (
-    <React.StrictMode>
-      <Router>
-        <div className="flex flex-col min-h-screen">
-          <main className="flex-grow">
-            <Routes>
-              <Route path='/admin/list-of-names' element={< ListofNames />} />
-            </Routes>
-          </main>
-        </div>
-      </Router>
-    </React.StrictMode>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path="/LoginAdmin" element={<LoginAdmin />}></Route>
+        <Route path="/RegistrationSystemAdmin" element={<RegistrationSystemAdmin />}></Route>
+        <Route path='/admin/list-of-names' element={< ListofNames />} />
+        <Route path="/AdminApp" element={<AdminApp />}></Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App;
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+
