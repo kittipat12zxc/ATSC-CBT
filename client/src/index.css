@@ -30,7 +30,13 @@ body {
 /* ------------------------------- Google translate ------------------------------- */
 
 /* ซ่อนหน้าพื้นหลังเวลากดปริ้นที่หน้า PrintExam.jsx */
+
 @media print {
+  
+  #printable-area {
+    display: block;
+  }
+
   .ForPrintHidden {
     display: none;
   }

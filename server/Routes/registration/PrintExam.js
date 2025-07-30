@@ -13,7 +13,7 @@ router.get('/:thai_id', async (req, res) => {
         const connection = await getDB();
         const [rows] = await connection.execute(
             `SELECT 
-                e.thai_id, e.firstname, e.lastname, e.province, e.examination_id,
+                e.enrollments_id, e.thai_id, e.firstname, e.lastname, e.province, e.examination_id,
                 ex.exam_set_name, ex.details, ex.question_count, ex.duration_minutes, ex.total_score,
                 ex.exam_place, ex.exam_building, ex.exam_room, ex.start_datetime, ex.end_datetime
             FROM examinee_686001 e

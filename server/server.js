@@ -10,10 +10,11 @@ const PrintExam = require('./Routes/registration/PrintExam')
 
 
 app.use(cors({
-    origin: ['http://localhost:3000'],
+    origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
@@ -25,7 +26,7 @@ app.use('/applyexam', ApplyExam);
 app.use('/api/check-exam-status', Checkexamstatus);
 app.use('/api/examinee', checkTheListRouter);
 
-app.listen(5000, () => {
+app.listen(5001, () => {
     console.log("Server started on port 5000");
 });
 
