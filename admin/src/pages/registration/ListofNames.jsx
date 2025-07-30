@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
@@ -6,9 +7,11 @@ import html2canvas from "html2canvas";
 import TableComponent from "../../components/TableComponent";
 import CustomEditModal from "../../components/CustomEditModel";
 import Confirm from "../../components/Confirm";
+import LeftSideBarAdmin from "../../components/LeftSideBarAdmin";
 
 export default function ListofNames() {
-    const ID = 686002;
+    const { ID } = useParams();
+    const navigate = useNavigate();
     const [dataExaminee, setDataExaminee] = useState([]);
     const [isEditMode, setIsEditMode] = useState(false);
     const [conFirmDelete, setConFirmDelete] = useState(false);
@@ -32,22 +35,22 @@ export default function ListofNames() {
         { header: "นามสกุล", accessor: "lastname", className: "w-[5%] p-2" },
         {
             header: "วิชาที่สอบ",
-            className: "w-[5%] p-2",
+            className: "w-[6%] p-2",
             render: (row) => row.examInfo?.exam_set_name || "-"
         },
         {
             header: "สถานที่สอบ",
-            className: "w-[10%] p-2",
+            className: "w-[6%] p-2",
             render: (row) => row.examInfo?.exam_building || 0
         },
         {
             header: "ห้องสอบ",
-            className: "w-[7%] p-2",
+            className: "w-[6%] p-2",
             render: (row) => row.examInfo?.exam_room || 0
         },
         {
             header: "",
-            className: "w-[5%] pl-2 pt-2 pb-2 pr-8",
+            className: "w-[6%] pl-2 pt-2 pb-2 pr-8",
             render: (row) => (
                 <div className="flex justify-between w-full items-center">
                 <button onClick={() => headleEdit(row)} className="text-center w-full border rounded-[8px] bg-[#FFC107] hover:bg-[#ff9800]">
@@ -168,7 +171,7 @@ export default function ListofNames() {
         }
     }
 
-    const fetchData = async () => {
+    const fetchData = useCallback(async () => {
         try {
             const res = await axios.get(`http://localhost:5000/api/admin/list-of-names/${ID}`);
             console.log(res.data.rows);
@@ -177,11 +180,11 @@ export default function ListofNames() {
         } catch (err) {
             console.error("โหลดข้อมูลล้มเหลว:", err);
         }
-    };
+    }, [ID]);
 
     useEffect(() => {
         fetchData();
-    }, [ID])
+    }, [fetchData])
 
     const generatePDF = async () => {
         setIsGenerating(true); // โชว์ div
@@ -272,91 +275,98 @@ export default function ListofNames() {
     };
 
     return (
-        <>
-        {/*************** header ******************/}
-        <div className="flex items-center space-x-2 m-5 pb-2 border-b-[5px] border-[#082290]">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
-                <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
-            </svg>
-            <span className="text-[20px] cursor-pointer hover:text-blue-700 transition"><strong>ระบบสมัครสอบ</strong></span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" className="mt-1" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
-            </svg>
-            <span className="text-[20px] cursor-pointer hover:text-blue-700 transition"><strong>รายชื่อ</strong></span>
-        </div>
-        {/*************** section ******************/}
-        <div className="flex flex-col w-full h-full justify-between items-center px-6">
-            <div className="w-full py-4">
-                <div className="flex justify-between items-start w-full h-[150px]">
-                    {/* กลาง: จำนวนผู้สมัครสอบ */}
-                    <div className="mx-auto text-center">
-                    <div className="text-[30px] font-bold">จำนวนผู้สมัครสอบ</div>
-                    <div className="flex justify-center items-baseline">
-                        <span className="text-[75px] text-[#082290] leading-none font-bold">{num}</span>
-                        <span className="ml-2 text-[24px] font-bold">คน</span>
-                    </div>
-                    </div>
+        <div className="bg-gray-50 min-h-screen">
+            <LeftSideBarAdmin />
 
-                    {/* ขวา: ดาวน์โหลดข้อมูล */}
-                    <div className="flex flex-col justify-end self-end items-end space-x-2">
-                        <div className="flex items-center space-x-2">
-                            <span className="pb-[2px]">ดาวน์โหลดข้อมูล</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-file-earmark-arrow-down-fill" viewBox="0 0 16 16">
-                                <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1m-1 4v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 11.293V7.5a.5.5 0 0 1 1 0"/>
-                            </svg>
-                        </div>
-                        <div className="flex w-full justify-between border-[2px]">
-                            <button onClick={generateCSV} className="w-full border-r-[2px] hover:bg-[#d3d3d3]">.CSV</button>
-                            <button onClick={generatePDF} className="w-full hover:bg-[#d3d3d3]">.PDF</button>
-                        </div>
-                    </div>
+            <main className="ml-80 p-6 font-sans text-gray-800">
+                {/*************** header ******************/}
+                <div className='max-w-[97%] mx-auto mt-[30px] w-full font-sans text-gray-800'>
+                    {/* Header ของ ระบบสมัครสอบ */}
+                    <div className='flex items-center border-b-4 border-black pb-4'>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
+                            <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
+                        </svg>
+                    <h1 onClick={() => navigate(-1)} className='text-[25px] ml-[10px] cursor-pointer hover:text-blue-700 transition'>ระบบสมัครสอบ</h1>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" className="mt-1" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
+                    </svg>
+                    <h1 className="text-[25px] ml-[10px]">รายชื่อ</h1>
                 </div>
-            </div>
-            <TableComponent columns={columns} data={dataExaminee} />
-            
-            {isEditMode && (
-                <CustomEditModal 
-                    columns={columnsEdit} 
-                    data={formData} 
-                    handleChange={handleChange} 
-                    handleSave={handleSave} 
-                    onClose={() => setIsEditMode(false)} 
-                />
-            )}
-
-            {conFirmDelete && (
-                <Confirm
-                    handleSubmit={() => handleDelete(examID)}
-                    onClose={() => setConFirmDelete(false)}
-                    title={title}
-                />
-            )}
-
-            <div id="pdf-content" className={`w-[794px] h-[1123px] p-[40px] ${isGenerating ? "block" : "hidden"} bg-white`}>
-                <div className="text-[25px] text-center pt-[10px] pb-[50px]">รายชื่อผู้สมัครสอบวิชา {dataExaminee[0]?.examInfo?.exam_set_name}</div>
-                <div className="flex justify-between">
-                    <div className="text-[18px] ml-[5%]"><strong className="pr-[20px]">สอบวันที่</strong> {formatThaiDate(dataExaminee[0]?.examInfo?.start_datetime)}</div>
-                    <div className="text-[18px] mr-[5%]">มหาลัยสวนดุสิต กรุงเทพมหานคร 10150</div>
                 </div>
-                <div className="flex justify-center mx-[10%] mt-[50px] flex-col">
-                    <div className="grid grid-cols-[150px_1fr] gap-4 font-bold text-center py-2 border-b border-gray-300">
-                        <div><strong>รหัสผู้เข้าสอบ</strong></div>
-                        <div><strong>ชื่อ - นามสกุล</strong></div>
-                    </div>
-                    <div>
-                        {dataExaminee.map((exam, i) => (
-                            <div key={i} className="grid grid-cols-[150px_1fr] gap-[25%] py-1 border-b border-gray-100">
-                                <div className="text-center">{exam.enrollments_id}</div>
-                                <div className="text-left"><strong>{exam.prefix}</strong>{" "}
-                                <span className="pr-[20px]">{exam.firstname}</span>{exam.lastname}</div>
+                {/*************** section ******************/}
+                <div className="flex flex-col w-full h-full justify-between items-center px-6">
+                    <div className="w-full py-4">
+                        <div className="flex justify-between items-start w-full h-[150px]">
+                            {/* กลาง: จำนวนผู้สมัครสอบ */}
+                            <div className="mx-auto text-center">
+                            <div className="text-[30px] font-bold">จำนวนผู้สมัครสอบ</div>
+                            <div className="flex justify-center items-baseline">
+                                <span className="text-[75px] text-[#082290] leading-none font-bold">{num}</span>
+                                <span className="ml-2 text-[24px] font-bold">คน</span>
                             </div>
-                        ))}
+                            </div>
+
+                            {/* ขวา: ดาวน์โหลดข้อมูล */}
+                            <div className="flex flex-col justify-end self-end items-end space-x-2">
+                                <div className="flex items-center space-x-2">
+                                    <span className="pb-[2px]">ดาวน์โหลดข้อมูล</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-file-earmark-arrow-down-fill" viewBox="0 0 16 16">
+                                        <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1m-1 4v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 11.293V7.5a.5.5 0 0 1 1 0"/>
+                                    </svg>
+                                </div>
+                                <div className="flex w-full justify-between border-[2px]">
+                                    <button onClick={generateCSV} className="w-full border-r-[2px] hover:bg-[#d3d3d3]">.CSV</button>
+                                    <button onClick={generatePDF} className="w-full hover:bg-[#d3d3d3]">.PDF</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    <TableComponent columns={columns} data={dataExaminee} />
+                    
+                    {isEditMode && (
+                        <CustomEditModal 
+                            columns={columnsEdit} 
+                            data={formData} 
+                            handleChange={handleChange} 
+                            handleSave={handleSave} 
+                            onClose={() => setIsEditMode(false)} 
+                        />
+                    )}
+
+                    {conFirmDelete && (
+                        <Confirm
+                            handleSubmit={() => handleDelete(examID)}
+                            onClose={() => setConFirmDelete(false)}
+                            title={title}
+                        />
+                    )}
+
+                    <div id="pdf-content" className={`w-[794px] h-[1123px] p-[40px] ${isGenerating ? "block" : "hidden"} bg-white`}>
+                        <div className="text-[25px] text-center pt-[10px] pb-[50px]">รายชื่อผู้สมัครสอบวิชา {dataExaminee[0]?.examInfo?.exam_set_name}</div>
+                        <div className="flex justify-between">
+                            <div className="text-[18px] ml-[5%]"><strong className="pr-[20px]">สอบวันที่</strong> {formatThaiDate(dataExaminee[0]?.examInfo?.start_datetime)}</div>
+                            <div className="text-[18px] mr-[5%]">มหาลัยสวนดุสิต กรุงเทพมหานคร 10150</div>
+                        </div>
+                        <div className="flex justify-center mx-[10%] mt-[50px] flex-col">
+                            <div className="grid grid-cols-[150px_1fr] gap-4 font-bold text-center py-2 border-b border-gray-300">
+                                <div><strong>รหัสผู้เข้าสอบ</strong></div>
+                                <div><strong>ชื่อ - นามสกุล</strong></div>
+                            </div>
+                            <div>
+                                {dataExaminee.map((exam, i) => (
+                                    <div key={i} className="grid grid-cols-[150px_1fr] gap-[25%] py-1 border-b border-gray-100">
+                                        <div className="text-center">{exam.enrollments_id}</div>
+                                        <div className="text-left"><strong>{exam.prefix}</strong>{" "}
+                                        <span className="pr-[20px]">{exam.firstname}</span>{exam.lastname}</div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
-            </div>
-
-
+            </main>
         </div>
-        </>
     )
 }

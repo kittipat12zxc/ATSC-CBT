@@ -36,7 +36,7 @@ router.post('/login', async (req,res)=>{
 
 
     } catch (error) {
-        console.error('Database error:', err);
+        console.error('Database error:', error);
         res.status(500).json({ error: 'Error Connect Admin Login DB' });
     }
 })

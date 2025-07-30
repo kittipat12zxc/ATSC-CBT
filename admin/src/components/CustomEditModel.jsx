@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-
 export default function CustomEditModal({columns, data, handleChange, handleSave, onClose}) {
     console.log("render modal", data);
     return(
