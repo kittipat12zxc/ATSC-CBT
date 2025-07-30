@@ -2,6 +2,7 @@ const express = require('express');
 const getDB = require('../../models/DataBase');
 const router = express.Router();
 
+// 
 router.post('/validatePassword', async (req, res) => {
     const { ExamineeID, Password } = req.body;
     console.log("🔍 Checking Login:", { ExamineeID, Password });

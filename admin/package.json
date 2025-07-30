@@ -1,14 +1,15 @@
 {
-  "name": "client",
+  "name": "admin",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "antd": "^5.26.5",
+    "axios": "^1.11.0",
+    "lucide-react": "^0.526.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-hook-form": "^7.60.0",
-    "react-router-dom": "^7.6.3",
-    "react-scripts": "^5.0.1",
+    "react-hook-form": "^7.61.1",
+    "react-router-dom": "^7.7.1",
+    "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -47,10 +48,12 @@
     "axios": "^1.11.0",
     "babel-loader": "^10.0.0",
     "html-webpack-plugin": "^5.6.3",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^3.0.1",
     "postcss": "^8.5.6",
     "postcss-loader": "^8.1.1",
     "tailwindcss": "^4.1.11",
-    "webpack": "^5.100.1",
+    "webpack": "^5.100.2",
     "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.2.2"
   }

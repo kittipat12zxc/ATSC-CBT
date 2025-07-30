@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const getDB = require('../../models/DataBase');
 
-// 
+
+// ดึงข้อมูลจาก public-relations
 
 router.get('/public-relations', async (req, res) => {
     try {

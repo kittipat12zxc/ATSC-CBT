@@ -12,6 +12,17 @@ services:
   #   ports:
   #     - "3000:3000"
 
+  # admin:
+  # container_name: admin
+  # build: 
+  #   context: ./admin
+  #   dockerfile: Dockerfile
+  # ports:
+  #   - "3001:3001"
+  # volumes:
+  #   - ./admin:/app
+  #   - /app/node_modules
+
   # server:
   #   container_name: server
   #   build: ./server
@@ -33,7 +44,7 @@ services:
       MYSQL_USER: dev
       MYSQL_PASSWORD: 123456
     ports: 
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
       

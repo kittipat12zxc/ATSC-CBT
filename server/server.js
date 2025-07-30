@@ -1,8 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-
 const app = express();
-const port = 5000;
 
 // ✅ Import routes (no duplicates)
 const MainExamAnnouncement = require('./Routes/registration/MainExamAnnouncement');
@@ -15,17 +13,23 @@ const Login = require('./Routes/CBT/login');
 const questionlist = require('./Routes/CBT/questionlist');
 const updateExam = require('./Routes/CBT/controllers/updateExam');
 const explain = require('./Routes/CBT/explain_exam');
+const LoginAdmin = require('./Routes/admin/main/LoginAdmin');
+const RegistrationSystemAdmin = require('./Routes/admin/registration/RegistrationSystemAdmin')
+const ImageUploadRoute = require('./Routes/admin/main/ImageUploadRoute.js');
+const ListofNames = require('./Routes/admin/registration/listofnames');
 const Homepage = require('./Routes/CBT/home.js');
 
-// ✅ Middleware
+
+// === MIDDLEWARE ===
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+    origin: ['http://localhost:3000', 'http://localhost:3001'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
+app.use('/images', express.static('uploads'));
 
 // ✅ Static mock API
 app.get('/api/examinations', (req, res) => {
@@ -49,8 +53,13 @@ app.use('/api/cbt', questionlist);
 app.use('/api/cbt', updateExam);
 app.use('/api/cbt', explain);
 app.use('/api/cbt', Homepage);
+app.use('/api/admin', LoginAdmin);
+app.use('/api/admin',RegistrationSystemAdmin)
+app.use('/api', ImageUploadRoute);
+app.use('/api/admin', ListofNames)
 
-// ✅ Start server
-app.listen(port, () => {
-  console.log(`✅ Server started at http://localhost:${port}`);
+
+// === START SERVER ===
+app.listen(5000, () => {
+    console.log("Server started on port 5000");
 });
