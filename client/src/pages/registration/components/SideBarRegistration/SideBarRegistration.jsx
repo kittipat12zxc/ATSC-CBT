@@ -7,7 +7,7 @@ const SideBarRegistration = () => {
               <a href="/DetailRegistration" className="bg-[#E0E0E0] border-b border-white rounded-t-md py-3 px-4 hover:bg-gray-300 transition-colors duration-200">
                   หน้าเเรก
                 </a>
-                <a href="/Examinationpage" className="bg-[#E0E0E0] border-b-2 border-white py-3 px-4 hover:bg-gray-300 transition-colors duration-200">
+                <a href={"/Examinationpage"} className="bg-[#E0E0E0] border-b-2 border-white py-3 px-4 hover:bg-gray-300 transition-colors duration-200">
                   สมัครสอบ
                 </a>
 

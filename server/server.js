@@ -8,6 +8,7 @@ const Login = require('./Routes/CBT/login');
 const questionlist = require('./Routes/CBT/questionlist');
 const updateExam = require('./Routes/CBT/controllers/updateExam');
 const explain = require('./Routes/CBT/explain_exam');
+const ListofNames = require('./Routes/admin/registration/listofnames')
 
 app.use(cors({
     origin: ['http://localhost:3000', 'http://localhost:3001'],
@@ -25,6 +26,7 @@ app.use('/api/cbt', Login);
 app.use('/api/cbt', questionlist);
 app.use('/api/cbt', updateExam);
 app.use('/api/cbt', explain);
+app.use('/api/admin', ListofNames)
 
 app.listen(5000, () => {
     console.log("Server started on port 5000");
