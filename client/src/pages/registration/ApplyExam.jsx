@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import Header from "../../Components/Header/PCHeader";
-import Footer from "../../Components/Footer/Footer";
+import Header from "../../components/Header/PCHeader";
+import Footer from "../../components/Footer/Footer";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);

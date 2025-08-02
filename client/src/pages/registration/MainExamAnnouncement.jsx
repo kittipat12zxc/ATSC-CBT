@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Header from '../../Components/Header/PCHeader';
-import Footer from '../../Components/Footer/Footer';
+import Header from '../../components/Header/PCHeader';
+import Footer from '../../components/Footer/Footer';
 
 function MainExamAnnouncement() {
   const [registrations, setRegistrations] = useState([]);
