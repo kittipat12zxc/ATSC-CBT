@@ -10,7 +10,7 @@ router.get('/registrationsystemadmin', async (req,res)=>{
         const [rows] = await db.query('SELECT * FROM `examination` ORDER BY `examination_id` ASC')
         res.json(rows)
     } catch (error) {
-        console.error('Database error:', err);
+        console.error('Database error:', error);
         res.status(500).json({ error: 'Error Connect Admin registrationsystemadmin DB' });
     }
 })

@@ -15,6 +15,7 @@ const explain = require('./Routes/CBT/explain_exam');
 const LoginAdmin = require('./Routes/admin/main/LoginAdmin');
 const RegistrationSystemAdmin = require('./Routes/admin/registration/RegistrationSystemAdmin')
 const ImageUploadRoute = require('./Routes/ImageUploadRoute');
+const ListofNames = require('./Routes/admin/registration/listofnames')
 
 
 // === MIDDLEWARE ===
@@ -42,6 +43,7 @@ app.use('/api/cbt', explain);
 app.use('/api/admin', LoginAdmin);
 app.use('/api/admin',RegistrationSystemAdmin)
 app.use('/api', ImageUploadRoute);
+app.use('/api/admin', ListofNames)
 
 
 // === START SERVER ===

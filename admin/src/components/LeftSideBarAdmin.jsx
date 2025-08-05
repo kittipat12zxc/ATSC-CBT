@@ -14,16 +14,16 @@ import {
 } from 'lucide-react';
 
 const menuItems = [
-  { id: 'news', icon: <Layers size={22} />, text: 'ข่าวสาร/ประชาสัมพันธ์' },
-  { id: 'exam-reg', icon: <User size={22} />, text: 'ระบบสมัครสอบ' },
-  { id: 'scope', icon: <CalendarDays size={22} />, text: 'ระบบการจัดทำขอบเขตงาน' },
-  { id: 'design', icon: <Settings size={22} />, text: 'ระบบการออกแบบข้อสอบ' },
-  { id: 'printing', icon: <Printer size={22} />, text: 'ระบบการจัดพิมพ์และเตรียมข้อสอบ' },
-  { id: 'distribution', icon: <Signal size={22} />, text: 'ระบบการกระจายข้อสอบไปยังสนามสอบ' },
-  { id: 'exam-ops', icon: <FileText size={22} />, text: 'ระบบการจัดสอบจริง' },
-  { id: 'grading', icon: <FileCheck size={22} />, text: 'ระบบการตรวจข้อสอบ' },
-  { id: 'results', icon: <Megaphone size={22} />, text: 'ระบบการประกาศผลสอบ' },
-  { id: 'evaluation', icon: <List size={22} />, text: 'ระบบการประเมินและสรุปผล' },
+  { id: 'news', icon: <Layers size={22} />, text: 'ข่าวสาร/ประชาสัมพันธ์', href: "/AdminApp" },
+  { id: 'exam-reg', icon: <User size={22} />, text: 'ระบบสมัครสอบ', href: "/RegistrationSystemAdmin" },
+  { id: 'scope', icon: <CalendarDays size={22} />, text: 'ระบบการจัดทำขอบเขตงาน', href: "/" },
+  { id: 'design', icon: <Settings size={22} />, text: 'ระบบการออกแบบข้อสอบ', href: "/" },
+  { id: 'printing', icon: <Printer size={22} />, text: 'ระบบการจัดพิมพ์และเตรียมข้อสอบ', href: "/" },
+  { id: 'distribution', icon: <Signal size={22} />, text: 'ระบบการกระจายข้อสอบไปยังสนามสอบ', href: "/" },
+  { id: 'exam-ops', icon: <FileText size={22} />, text: 'ระบบการจัดสอบจริง', href: "/" },
+  { id: 'grading', icon: <FileCheck size={22} />, text: 'ระบบการตรวจข้อสอบ', href: "/" },
+  { id: 'results', icon: <Megaphone size={22} />, text: 'ระบบการประกาศผลสอบ', href: "/" },
+  { id: 'evaluation', icon: <List size={22} />, text: 'ระบบการประเมินและสรุปผล', href: "/" },
 ];
 
 const LeftSideBarAdmin = () => {
@@ -43,7 +43,7 @@ const LeftSideBarAdmin = () => {
         {menuItems.map((item) => (
           <a
             key={item.id}
-            href="/"
+            href={item.href}
             onClick={() => setActiveItem(item.id)}
             // เพิ่ม relative เพื่อเป็นคอนเทนเนอร์ให้เส้นขีดใต้
 className={`relative flex items-center rounded-md px-4 py-3 text-base font-medium transition-colors hover:bg-[#3d444a] ${activeItem === item.id ? 'bg-[#343a40]' : ''}`}>
@@ -64,7 +64,7 @@ className={`relative flex items-center rounded-md px-4 py-3 text-base font-mediu
       {/* ===== ส่วนท้ายของ Sidebar (ปุ่มออกจากระบบ) - เหมือนเดิม ===== */}
       <div className="p-4">
         <a
-          href="/LoginAdmin"
+          href="/"
           className="flex items-center justify-center rounded-md px-4 py-3 text-base font-medium transition-colors hover:bg-[#3d444a]"
         >
           <span className="mr-3">ออกจากระบบ</span>
