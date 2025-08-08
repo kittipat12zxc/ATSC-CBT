@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Layers,
   User,
@@ -11,23 +11,73 @@ import {
   Megaphone,
   List,
   LogOut,
-} from 'lucide-react';
+} from "lucide-react";
 
 const menuItems = [
-  { id: 'news', icon: <Layers size={22} />, text: 'ข่าวสาร/ประชาสัมพันธ์', href: "/AdminApp" },
-  { id: 'exam-reg', icon: <User size={22} />, text: 'ระบบสมัครสอบ', href: "/RegistrationSystemAdmin" },
-  { id: 'scope', icon: <CalendarDays size={22} />, text: 'ระบบการจัดทำขอบเขตงาน', href: "/" },
-  { id: 'design', icon: <Settings size={22} />, text: 'ระบบการออกแบบข้อสอบ', href: "/" },
-  { id: 'printing', icon: <Printer size={22} />, text: 'ระบบการจัดพิมพ์และเตรียมข้อสอบ', href: "/" },
-  { id: 'distribution', icon: <Signal size={22} />, text: 'ระบบการกระจายข้อสอบไปยังสนามสอบ', href: "/" },
-  { id: 'exam-ops', icon: <FileText size={22} />, text: 'ระบบการจัดสอบจริง', href: "/" },
-  { id: 'grading', icon: <FileCheck size={22} />, text: 'ระบบการตรวจข้อสอบ', href: "/" },
-  { id: 'results', icon: <Megaphone size={22} />, text: 'ระบบการประกาศผลสอบ', href: "/" },
-  { id: 'evaluation', icon: <List size={22} />, text: 'ระบบการประเมินและสรุปผล', href: "/" },
+  {
+    id: "news",
+    icon: <Layers size={22} />,
+    text: "ข่าวสาร/ประชาสัมพันธ์",
+    href: "/AdminApp",
+  },
+  {
+    id: "exam-reg",
+    icon: <User size={22} />,
+    text: "ระบบสมัครสอบ",
+    href: "/RegistrationSystemAdmin",
+  },
+  {
+    id: "scope",
+    icon: <CalendarDays size={22} />,
+    text: "ระบบ CBT",
+    href: "/main",
+  },
+  {
+    id: "design",
+    icon: <Settings size={22} />,
+    text: "ระบบการออกแบบข้อสอบ",
+    href: "/",
+  },
+  {
+    id: "printing",
+    icon: <Printer size={22} />,
+    text: "ระบบการจัดพิมพ์และเตรียมข้อสอบ",
+    href: "/",
+  },
+  {
+    id: "distribution",
+    icon: <Signal size={22} />,
+    text: "ระบบการกระจายข้อสอบไปยังสนามสอบ",
+    href: "/",
+  },
+  {
+    id: "exam-ops",
+    icon: <FileText size={22} />,
+    text: "ระบบการจัดสอบจริง",
+    href: "/",
+  },
+  {
+    id: "grading",
+    icon: <FileCheck size={22} />,
+    text: "ระบบการตรวจข้อสอบ",
+    href: "/",
+  },
+  {
+    id: "results",
+    icon: <Megaphone size={22} />,
+    text: "ระบบการประกาศผลสอบ",
+    href: "/",
+  },
+  {
+    id: "evaluation",
+    icon: <List size={22} />,
+    text: "ระบบการประเมินและสรุปผล",
+    href: "/",
+  },
 ];
 
 const LeftSideBarAdmin = () => {
-  const [activeItem, setActiveItem] = useState('news');
+  const [activeItem, setActiveItem] = useState("news");
 
   return (
     <aside className="fixed top-0 left-0 flex h-screen w-80 flex-col bg-[#212529] text-white">
@@ -46,7 +96,10 @@ const LeftSideBarAdmin = () => {
             href={item.href}
             onClick={() => setActiveItem(item.id)}
             // เพิ่ม relative เพื่อเป็นคอนเทนเนอร์ให้เส้นขีดใต้
-className={`relative flex items-center rounded-md px-4 py-3 text-base font-medium transition-colors hover:bg-[#3d444a] ${activeItem === item.id ? 'bg-[#343a40]' : ''}`}>
+            className={`relative flex items-center rounded-md px-4 py-3 text-base font-medium transition-colors hover:bg-[#3d444a] ${
+              activeItem === item.id ? "bg-[#343a40]" : ""
+            }`}
+          >
             <span className="mr-4">{item.icon}</span>
             <span>{item.text}</span>
 
