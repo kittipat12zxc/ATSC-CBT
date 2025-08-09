@@ -222,27 +222,27 @@ const ExamSetManager = () => {
             <FaArrowLeft />
           </button>
           <button onClick={() => navigate("/main")} className="bg-white text-black px-2 py-2 rounded-md flex items-center gap-1">
-            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="25" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
-              <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5" />
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
             </svg>
             หน้าหลัก
           </button>
         </div>
 
-        <div className="border-white border-2 rounded-[5px] flex justify-center ">
-          <button onClick={handleEditMode} className="text-black bg-white px-2 py-2 flex items-center gap-1 border-[#0a2441] border-r-2 hover:bg-transparent hover:text-white">
+        <div className="rounded-[5px] flex justify-center gap-5 ">
+          <button onClick={handleEditMode} className="text-black bg-yellow-400 px-[2rem] rounded-sm py-2 flex items-center gap-1 hover:bg-yellow-500">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
             </svg>
             แก้ไข
           </button>
-          <button onClick={handleDeleteMode} className="text-black bg-white px-2 py-2 flex items-center gap-1 border-[#0a2441] border-r-2 hover:bg-transparent hover:text-white">
+          <button onClick={handleDeleteMode} className="text-white bg-red-500 px-[2rem] rounded-sm py-2 flex items-center  gap-1 hover:bg-red-700">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
             </svg>
             ลบ
           </button>
-          <button onClick={handleAdd} className="text-black bg-white px-2 py-2 flex items-center gap-1 hover:bg-transparent hover:text-white">
+          <button onClick={handleAdd} className="text-black bg-white px-2 rounded-sm py-2 flex items-center  gap-1 hover:bg-zinc-200">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
             </svg>
@@ -286,10 +286,10 @@ const ExamSetManager = () => {
                   {/* เมนูปกติ */}
                   {mode === "normal" && (
                     <div className="flex gap-2 justify-center">
-                      <button className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
+                      <button className="bg-blue-500 text-white px-3 py-1 text-base rounded hover:bg-blue-700">
                         รายชื่อ
                       </button>
-                      <button onClick={() => handleManageQuestions(exam.examination_id)} className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700">
+                      <button onClick={() => handleManageQuestions(exam.examination_id)} className="bg-green-500 text-white px-3 py-1 text-base rounded hover:bg-green-700">
                         ข้อสอบ
                       </button>
                     </div>
@@ -298,12 +298,12 @@ const ExamSetManager = () => {
                   {/* เมนูแก้ไข */}
                   {mode === "edit" && (
                     <div className="flex gap-2 justify-center">
-                      <button onClick={() => handleEdit(exam)} className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600">
+                      <button onClick={() => handleEdit(exam)} className="bg-yellow-500 text-white px-3 py-1 text-base rounded hover:bg-yellow-600">
                         แก้ไข
                       </button>
                       <button
                         onClick={handleDone}
-                        className="bg-gray-400 text-white px-3 py-1 rounded hover:bg-gray-500"
+                        className="bg-gray-400 text-white px-3 py-1 text-base rounded hover:bg-gray-500"
                       >
                         เสร็จสิ้น
                       </button>
@@ -313,12 +313,12 @@ const ExamSetManager = () => {
                   {/* เมนูลบ */}
                   {mode === "delete" && (
                     <div className="flex gap-2 justify-center">
-                      <button onClick={() => handleDelete(exam.examination_id, AdminID)} className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700">
+                      <button onClick={() => handleDelete(exam.examination_id, AdminID)} className="bg-red-600 text-white px-3 py-1 text-base rounded hover:bg-red-700">
                         ลบ
                       </button>
                       <button
                         onClick={handleDone}
-                        className="bg-gray-400 text-white px-3 py-1 rounded hover:bg-gray-500"
+                        className="bg-gray-400 text-white px-3 py-1 text-base rounded hover:bg-gray-500"
                       >
                         เสร็จสิ้น
                       </button>
