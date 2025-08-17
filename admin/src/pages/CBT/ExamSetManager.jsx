@@ -1,358 +1,267 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { FaArrowLeft } from "react-icons/fa";
+import { FaArrowLeft, FaHome, FaPlus, FaPen, FaTrash, FaCheck } from "react-icons/fa";
 
 const ExamSetManager = () => {
-  const [mode, setMode] = useState("normal"); // normal | edit | delete
-
-  const handleEditMode = () => setMode("edit");
-  const handleDeleteMode = () => setMode("delete");
-  const handleDone = () => setMode("normal");
-
-
-
-  const [examSets, setExamSets] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [isEditMode, setIsEditMode] = useState(false);
-  const [formData, setFormData] = useState({
-    examination_id: "",
-    examination_name: "",
-    details: "",
-    duration_minutes: "",
-    question_count: "",
-    total_score: "",
-    start_datetime: "",
-    result_date: "",
-  });
-
-  const navigate = useNavigate();
-  const AdminID = sessionStorage.getItem("AdminID");
-
-  const fetchExamSets = async () => {
-    try {
-      const res = await axios.get("http://localhost:5000/api/examsets");
-      setExamSets(res.data);
-    } catch (error) {
-      console.error("Error fetching exam sets:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchExamSets();
-  }, []);
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const formatDateTimeForInput = (dateTime, isDateOnly = false) => {
-    if (!dateTime) return "";
-    const date = new Date(dateTime);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    if (isDateOnly) return `${year}-${month}-${day}`;
-    const hours = String(date.getHours()).padStart(2, "0");
-    const minutes = String(date.getMinutes()).padStart(2, "0");
-    return `${year}-${day}-${month}T${hours}:${minutes}`;
-  };
-
-  const formatDateTimeForMySQL = (dateTime, isDateOnly = false) => {
-    if (isDateOnly) return dateTime;
-    return dateTime.replace("T", " ") + ":00";
-  };
-
-  const handleAdd = () => {
-    setFormData({
-      examination_id: "",
-      examination_name: "",
-      details: "",
-      duration_minutes: "",
-      question_count: "",
-      total_score: "",
-      start_datetime: "",
-      result_date: "",
-    });
-    setIsEditMode(false);
-    setShowModal(true);
-  };
-
-  const handleEdit = (exam) => {
-    setFormData({
-      examination_id: exam.examination_id,
-      examination_name: exam.examination_name,
-      details: exam.details,
-      duration_minutes: formatToMinutes(exam.duration_minutes),
-      question_count: exam.question_count,
-      total_score: exam.total_score,
-      start_datetime: formatDateTimeForInput(formatDateNoShift(exam.start_datetime)),
-      result_date: formatDateTimeForInput(formatDateNoShift(exam.result_date)),
-    });
-    setIsEditMode(true);
-    setShowModal(true);
-  };
-
-  const handleDelete = async (examID, AdminID) => {
-    if (!window.confirm(`ยืนยันการลบชุดข้อสอบ รหัส ${examID} หรือไม่?`)) return;
-    try {
-      const res = await axios.delete(`http://localhost:5000/api/examsets/${examID}/${AdminID}`);
-      if (res.status === 200) {
-        alert("✅ ลบชุดข้อสอบสำเร็จ");
-        fetchExamSets();
-      } else {
-        alert("❌ ลบชุดข้อสอบไม่สำเร็จ");
-      }
-    } catch (error) {
-      console.error("❌ เกิดข้อผิดพลาดในการลบ:", error);
-      alert("❌ ไม่สามารถลบชุดข้อสอบได้");
-    }
-  };
-
-  const handleSave = async () => {
-    const {
-      examination_id,
-      examination_name,
-      details,
-      duration_minutes,
-      question_count,
-      total_score,
-      start_datetime,
-      result_date,
-    } = formData;
-
-    if (
-      !examination_id ||
-      !examination_name ||
-      !details ||
-      !duration_minutes ||
-      !question_count ||
-      !total_score ||
-      !start_datetime ||
-      !result_date
-    ) {
-      alert("❌ กรุณากรอกข้อมูลให้ครบทุกช่อง!");
-      return;
-    }
-
-    const hour = Math.floor(duration_minutes / 60);
-    const minute = duration_minutes % 60;
-    const Time_minutes = `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}:00`;
-
-    const dataToSend = {
-      ExaminationID: examination_id,
-      ExaminationName: examination_name,
-      Details: details,
-      DurationMinutes: Time_minutes,
-      QuestionCount: Number(question_count),
-      TotalScore: Number(total_score),
-      StartDateTime: formatDateTimeForMySQL(start_datetime),
-      ResultDate: formatDateTimeForMySQL(result_date, true),
-    };
-
-    try {
-      if (isEditMode) {
-        const res = await axios.put(`http://localhost:5000/api/examsets/${examination_id}`, dataToSend);
-        if (res.status === 200) alert("✅ แก้ไขชุดข้อสอบสำเร็จ");
-      } else {
-        const res = await axios.post("http://localhost:5000/api/examsets", dataToSend);
-        if (res.status === 201) {
-          alert("✅ เพิ่มชุดข้อสอบสำเร็จ");
-          handleManageQuestions(formData.examination_id);
-        }
-      }
-
-      setShowModal(false);
-      setIsEditMode(false);
-      setFormData({
+    
+    const [examSets, setExamSets] = useState([]);
+    const [mode, setMode] = useState("normal"); 
+    const [showModal, setShowModal] = useState(false);
+    const [isEditMode, setIsEditMode] = useState(false);
+    const [formData, setFormData] = useState({
         examination_id: "",
-        examination_name: "",
+        exam_set_name: "",
         details: "",
         duration_minutes: "",
         question_count: "",
         total_score: "",
         start_datetime: "",
         result_date: "",
-      });
-      fetchExamSets();
-    } catch (error) {
-      console.error("❌ เกิดข้อผิดพลาด:", error.response?.data || error);
-      alert("❌ ไม่สามารถบันทึกได้");
-    }
-  };
+    });
 
-  const handleManageQuestions = async (examID) => {
+    const navigate = useNavigate();
+    const AdminID = sessionStorage.getItem("AdminID");
+
+  
+    const fetchExamSets = useCallback(async () => {
+        try {
+            const res = await axios.get("http://localhost:5000/api/examsets");
+            setExamSets(res.data);
+        } catch (error) {
+            console.error("Error fetching exam sets:", error);
+            alert("❌ Could not fetch exam sets. Is the server running?");
+        }
+    }, []);
+
+    useEffect(() => {
+        fetchExamSets();
+    }, [fetchExamSets]);
+
+   
+    const toLocalISOString = (dateString) => { // เเปลง Format วันที่ 
+        if (!dateString) return "";
+        const date = new Date(dateString);
+        
+        const tzoffset = (new Date()).getTimezoneOffset() * 60000; 
+        const localISOTime = (new Date(date - tzoffset)).toISOString().slice(0, 16);
+        return localISOTime;
+    };
+    
+    const formatDurationToMinutes = (timeStr) => { // เเปลง Format เวลาให้ดี 
+        if (!timeStr) return "";
+        const [hours, minutes] = timeStr.split(':').map(Number);
+        return hours * 60 + minutes;
+    };
+
+    
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleAdd = () => { // กดเพิ่มคำถามเเล้ว เด้ง Modal ค่าว่างขึ้นมาเพื่อให้เพิ่ม
+        setIsEditMode(false);
+        setFormData({
+            examination_id: "",
+            exam_set_name: "",
+            details: "",
+            duration_minutes: "",
+            question_count: "",
+            total_score: "",
+            start_datetime: "",
+            result_date: "",
+        });
+        setShowModal(true);
+    };
+
+    const handleEdit = (exam) => { // กด เเก้ไข เเล้วเด้ง Modal ที่มีค่าก่อนหน้าขึ้นมา เพื่อให้เเก้ไขข้อมูลที่มีอยู่เป็นอย่างอื่น
+        setIsEditMode(true);
+        setFormData({
+            examination_id: exam.examination_id,
+            exam_set_name: exam.exam_set_name,
+            details: exam.details,
+            duration_minutes: formatDurationToMinutes(exam.duration_minutes),
+            question_count: exam.question_count,
+            total_score: exam.total_score,
+            start_datetime: toLocalISOString(exam.start_datetime),
+            result_date: toLocalISOString(exam.result_date),
+        });
+        setShowModal(true);
+    };
+    
+    const handleDelete = async (examID) => { // กด ลบ เเล้วเด้ง Popup ขั้นมาเพื่อยืนยันการลบ
+        if (!window.confirm(`Are you sure you want to delete exam set ID ${examID}?`)) return;
+        try {
+            const res = await axios.delete(`http://localhost:5000/api/examsets/${examID}/${AdminID}`);
+            if (res.status === 200) {
+                alert("✅ Exam set deleted successfully!");
+                fetchExamSets(); 
+            }
+        } catch (error) {
+            console.error("Error deleting exam set:", error);
+            alert(`❌ Failed to delete exam set. ${error.response?.data?.message || ''}`);
+        }
+    };
+
+    const handleSave = async () => { // ยืนยันการส่งฟอม เช็คว่าถ้าผู้ใช้กรอกเเบบฟอมครบหรือไม่
+ 
+    for (const key in formData) {
+        if (formData[key] === "") {
+            alert("❌ Please fill in all fields.");
+            return;
+        }
+    }
+
+    
+    const questionCount = parseInt(formData.question_count, 10); 
+    const totalScore = parseInt(formData.total_score, 10);
+    const durationMinutes = parseInt(formData.duration_minutes, 10);
+
+    
+    if (isNaN(questionCount) || isNaN(totalScore) || isNaN(durationMinutes)) { // 
+        alert("❌ Please ensure Question Count, Total Score, and Duration are valid numbers.");
+        return;
+    }
+    
+
+    const hours = Math.floor(durationMinutes / 60);
+    const minutes = durationMinutes % 60;
+    
+    
+    const dataToSend = {
+        examination_id: formData.examination_id,
+        exam_set_name: formData.exam_set_name,
+        details: formData.details,
+        start_datetime: formData.start_datetime,
+        result_date: formData.result_date,
+        
+        question_count: questionCount,
+        total_score: totalScore,
+       
+        DurationMinutes: `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:00`,
+    };
+
     try {
-      await axios.post(`http://localhost:5000/api/questions/init/${examID}`);
-      navigate(`/manage-questions/${examID}`);
+        let res;
+        if (isEditMode) { // ถ้าอยู่ในโหมด edit เป็น true = เปิดให้เเก้ไขได้้
+            
+            res = await axios.put(`http://localhost:5000/api/examsets/${formData.examination_id}`, dataToSend);
+            if (res.status === 200) alert("✅ Exam set updated successfully!");
+        } else { // ถ้าไม่อยู่ในโหมด edit เป็น false = ไม่ให้เเก้ไข เเต่เป็นการเพิ่ม
+            res = await axios.post("http://localhost:5000/api/examsets", dataToSend);
+            if (res.status === 201) alert("✅ Exam set added successfully!");
+        }
+        setShowModal(false);
+        fetchExamSets(); 
     } catch (error) {
-      console.error("❌ ไม่สามารถสร้างตารางคำถามได้:", error);
-      alert("❌ สร้างตารางคำถามล้มเหลว");
+        console.error("Save error:", error.response?.data || error);
+        alert(`❌ Could not save the exam set. ${error.response?.data?.error || 'Check the console for details.'}`);
     }
-  };
+};
+    
+    const handleManageQuestions = (examID) => { 
+      navigate(`/ManageQuestions/${examID}`);
+    };
 
-  const formatDateNoShift = (isoString, offsetDays = 0) => {
-    if (!isoString) return "";
-    const [datePart, ...rest] = isoString.split("T");
-    const time = rest.join("T");
-    const [year, month, day] = datePart.split("-").map(Number);
-    const date = new Date(year, month - 1, day);
-    date.setDate(date.getDate() + offsetDays);
-    const y = date.getFullYear();
-    const m = String(date.getMonth() + 1).padStart(2, "0");
-    const d = String(date.getDate()).padStart(2, "0");
-    const t = time.split("+07:00")[0];
-    return `${d}/${m}/${y} ${t}`;
-  };
+    
+    return (
+        <div className="font-[Kanit] bg-gray-50 min-h-screen">
+            {/* Navbar */}
+            <header className="bg-[#0a2441] text-white p-4 shadow-md flex justify-between items-center">
+                <div className="flex gap-2">
+                    <button onClick={() => navigate(-1)} className="bg-white text-black p-2 rounded-md hover:bg-gray-200 transition-colors">
+                        <FaArrowLeft />
+                    </button>
+                    <button onClick={() => navigate("/main")} className="bg-white text-black px-3 py-1 rounded-md flex items-center gap-2 hover:bg-gray-200 transition-colors">
+                        <FaHome /> หน้าหลัก
+                    </button>
+                </div>
+                <div className="flex gap-3">
+                     <button onClick={handleAdd} className="bg-white text-blue-600 px-3 py-1 rounded-md flex items-center gap-2 hover:bg-blue-50 transition-colors">
+                        <FaPlus /> เพิ่มชุดข้อสอบ
+                    </button>
+                    <button onClick={() => setMode('edit')} className="bg-yellow-400 text-black px-3 py-1 rounded-md flex items-center gap-2 hover:bg-yellow-500 transition-colors">
+                        <FaPen /> แก้ไข
+                    </button>
+                    <button onClick={() => setMode('delete')} className="bg-red-500 text-white px-3 py-1 rounded-md flex items-center gap-2 hover:bg-red-600 transition-colors">
+                        <FaTrash /> ลบ
+                    </button>
+                </div>
+            </header>
 
-  const formatToMinutes = (Time) => {
-    if (!Time) return "";
-    const [hour, ...minute] = Time.split(":");
-    const hours = Number(hour) * 60;
-    const minutes = hours + Number(minute[0]);
-    return `${minutes}`;
-  };
+         
+            <main className="p-4">
+                <h1 className="text-2xl font-semibold mb-4 text-gray-800">จัดการชุดข้อสอบ</h1>
+                <div className="overflow-x-auto bg-white rounded-lg shadow-md">
+                    <table className="w-full table-auto text-sm border-collapse">
+                        <thead className="bg-[#23466d] text-white">
+                            <tr>
+                                {['รหัส', 'ชื่อข้อสอบ', 'รายละเอียด', 'เวลา (นาที)', 'จำนวนข้อ', 'คะแนน', 'เริ่มสอบ', 'ประกาศผล', 'ตัวเลือก'].map(h => <th key={h} className="p-3 border text-left">{h}</th>)}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {examSets.map((exam) => (
+                                <tr key={exam.examination_id} className="odd:bg-white even:bg-gray-50 hover:bg-gray-100 border-b">
+                                    <td className="p-3 border">{exam.examination_id}</td>
+                                    <td className="p-3 border">{exam.exam_set_name}</td>
+                                    <td className="p-3 border">{exam.details}</td>
+                                    <td className="p-3 border text-center">{exam.duration_minutes}</td>
+                                    <td className="p-3 border text-center">{exam.question_count}</td>
+                                    <td className="p-3 border text-center">{exam.total_score}</td>
+                                    <td className="p-3 border">{new Date(exam.start_datetime).toLocaleString()}</td>
+                                    <td className="p-3 border">{new Date(exam.result_date).toLocaleDateString()}</td>
+                                    <td className="p-3 border">
+                                        <div className="flex gap-2 justify-center">
+                                            {mode === "normal" && (
+                                                <>
+                                                    <button className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">รายชื่อ</button>
+                                                    <button onClick={() => handleManageQuestions(exam.examination_id)} className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">ข้อสอบ</button>
+                                                </>
+                                            )}
+                                            {mode === "edit" && (
+                                                <button onClick={() => handleEdit(exam)} className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600">แก้ไข</button>
+                                            )}
+                                            {mode === "delete" && (
+                                                <button onClick={() => handleDelete(exam.examination_id)} className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700">ลบ</button>
+                                            )}
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                     {(mode === "edit" || mode === "delete") && (
+                        <div className="p-3 text-right bg-gray-100">
+                            <button onClick={() => setMode('normal')} className="bg-gray-500 text-white px-4 py-2 rounded-md flex items-center gap-2 ml-auto hover:bg-gray-600">
+                                <FaCheck /> เสร็จสิ้น
+                            </button>
+                        </div>
+                    )}
+                </div>
+            </main>
 
-  return (
-    <div className="font-[Kanit]">
-      {/* Navbar */}
-      <div className="bg-[#0a2441] text-white p-5 mb-4 flex justify-between items-center">
-        <div className="flex gap-2">
-          <button onClick={() => navigate(-1)} className="bg-white text-black px-3 py-2 rounded-md">
-            <FaArrowLeft />
-          </button>
-          <button onClick={() => navigate("/main")} className="bg-white text-black px-2 py-2 rounded-md flex items-center gap-1">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-            </svg>
-            หน้าหลัก
-          </button>
-        </div>
-
-        <div className="rounded-[5px] flex justify-center gap-5 ">
-          <button onClick={handleEditMode} className="text-black bg-yellow-400 px-[2rem] rounded-sm py-2 flex items-center gap-1 hover:bg-yellow-500">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-            </svg>
-            แก้ไข
-          </button>
-          <button onClick={handleDeleteMode} className="text-white bg-red-500 px-[2rem] rounded-sm py-2 flex items-center  gap-1 hover:bg-red-700">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-            </svg>
-            ลบ
-          </button>
-          <button onClick={handleAdd} className="text-black bg-white px-2 rounded-sm py-2 flex items-center  gap-1 hover:bg-zinc-200">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-            </svg>
-            เพิ่มชุดข้อสอบ
-          </button>
-        </div>
-
-      </div>
-
-      {/* Title */}
-      <h1 className="text-2xl font-semibold mb-4 ml-2 text-gray-800">แก้ไขข้อสอบ</h1>
-
-      {/* Table */}
-      <div className="overflow-x-auto bg-white rounded-xl shadow-md mx-2 p-4">
-        <table className="w-full table-auto text-sm border-collapse">
-          <thead>
-            <tr className="bg-[#23466d] text-white">
-              <th className="p-2 border">รหัสข้อสอบ</th>
-              <th className="p-2 border">ชื่อข้อสอบ</th>
-              <th className="p-2 border">รายละเอียด</th>
-              <th className="p-2 border">เวลาในการทำ (นาที)</th>
-              <th className="p-2 border">จำนวนข้อ</th>
-              <th className="p-2 border">คะแนนรวม</th>
-              <th className="p-2 border">เริ่มสอบ</th>
-              <th className="p-2 border">ประกาศผล</th>
-              <th className="p-2 border">ตัวเลือก</th>
-            </tr>
-          </thead>
-          <tbody>
-            {examSets.map((exam) => (
-              <tr key={exam.examination_id} className="odd:bg-white even:bg-gray-100 hover:bg-gray-200">
-                <td className="p-2 border text-center">{exam.examination_id}</td>
-                <td className="p-2 border text-center">{exam.examination_name}</td>
-                <td className="p-2 border text-center">{exam.details}</td>
-                <td className="p-2 border text-center">{formatToMinutes(exam.duration_minutes)}</td>
-                <td className="p-2 border text-center">{exam.question_count}</td>
-                <td className="p-2 border text-center">{exam.total_score}</td>
-                <td className="p-2 border text-center">{formatDateNoShift(exam.start_datetime)}</td>
-                <td className="p-2 border text-center">{formatDateNoShift(exam.result_date)}</td>
-                <td className="p-2 border">
-                  {/* เมนูปกติ */}
-                  {mode === "normal" && (
-                    <div className="flex gap-2 justify-center">
-                      <button className="bg-blue-500 text-white px-3 py-1 text-base rounded hover:bg-blue-700">
-                        รายชื่อ
-                      </button>
-                      <button onClick={() => handleManageQuestions(exam.examination_id)} className="bg-green-500 text-white px-3 py-1 text-base rounded hover:bg-green-700">
-                        ข้อสอบ
-                      </button>
+            {/* Modal */}
+            {showModal && (
+                <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
+                    <div className="bg-white p-6 rounded-lg shadow-xl w-full max-w-md flex flex-col gap-4">
+                        <h3 className="text-xl font-semibold">{isEditMode ? "แก้ไขชุดข้อสอบ" : "เพิ่มชุดข้อสอบ"}</h3>
+                        <input name="examination_id" placeholder="รหัสข้อสอบ" onChange={handleChange} value={formData.examination_id} readOnly={isEditMode} className={`p-2 border rounded ${isEditMode ? "bg-gray-200 cursor-not-allowed" : ""}`} />
+                        <input name="exam_set_name" placeholder="ชื่อข้อสอบ" onChange={handleChange} value={formData.exam_set_name} className="p-2 border rounded" />
+                        <textarea name="details" placeholder="รายละเอียด" onChange={handleChange} value={formData.details} className="p-2 border rounded" rows="3"></textarea>
+                        <input name="duration_minutes" type="number" min="1" placeholder="เวลาในการทำ (นาที)" onChange={handleChange} value={formData.duration_minutes} className="p-2 border rounded" />
+                        <input name="question_count" type="number" min="1" placeholder="จำนวนข้อ" onChange={handleChange} value={formData.question_count} className="p-2 border rounded" />
+                        <input name="total_score" type="number" min="1" placeholder="คะแนนรวม" onChange={handleChange} value={formData.total_score} className="p-2 border rounded" />
+                        <label>เวลาเริ่มสอบ: <input name="start_datetime" type="datetime-local" onChange={handleChange} value={formData.start_datetime} className="p-2 border rounded w-full" /></label>
+                        <label>เวลาประกาศผล: <input name="result_date" type="datetime-local" onChange={handleChange} value={formData.result_date} className="p-2 border rounded w-full" /></label>
+                        <div className="flex justify-end gap-3 mt-2">
+                            <button onClick={() => setShowModal(false)} className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">ยกเลิก</button>
+                            <button onClick={handleSave} className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">บันทึก</button>
+                        </div>
                     </div>
-                  )}
-
-                  {/* เมนูแก้ไข */}
-                  {mode === "edit" && (
-                    <div className="flex gap-2 justify-center">
-                      <button onClick={() => handleEdit(exam)} className="bg-yellow-500 text-white px-3 py-1 text-base rounded hover:bg-yellow-600">
-                        แก้ไข
-                      </button>
-                      <button
-                        onClick={handleDone}
-                        className="bg-gray-400 text-white px-3 py-1 text-base rounded hover:bg-gray-500"
-                      >
-                        เสร็จสิ้น
-                      </button>
-                    </div>
-                  )}
-
-                  {/* เมนูลบ */}
-                  {mode === "delete" && (
-                    <div className="flex gap-2 justify-center">
-                      <button onClick={() => handleDelete(exam.examination_id, AdminID)} className="bg-red-600 text-white px-3 py-1 text-base rounded hover:bg-red-700">
-                        ลบ
-                      </button>
-                      <button
-                        onClick={handleDone}
-                        className="bg-gray-400 text-white px-3 py-1 text-base rounded hover:bg-gray-500"
-                      >
-                        เสร็จสิ้น
-                      </button>
-                    </div>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      {/* Modal */}
-      {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded-lg w-96 flex flex-col gap-3">
-            <h3 className="text-xl font-semibold">{isEditMode ? "แก้ไขชุดข้อสอบ" : "เพิ่มชุดข้อสอบ"}</h3>
-            <input name="examination_id" placeholder="รหัสข้อสอบ" onChange={handleChange} value={formData.examination_id} readOnly={isEditMode} className={`p-2 border rounded ${isEditMode ? "bg-gray-200 text-gray-600 cursor-not-allowed" : ""}`} />
-            <input name="examination_name" placeholder="ชื่อข้อสอบ" onChange={handleChange} value={formData.examination_name} className="p-2 border rounded" />
-            <input name="details" placeholder="รายละเอียด" onChange={handleChange} value={formData.details} className="p-2 border rounded" />
-            <input name="duration_minutes" type="number" min={1} placeholder="เวลาในการทำข้อสอบ (นาที)" onChange={handleChange} value={formData.duration_minutes} className="p-2 border rounded" />
-            <input name="question_count" type="number" min={1} placeholder="จำนวนข้อ" onChange={handleChange} value={formData.question_count} className="p-2 border rounded" />
-            <input name="total_score" type="number" min={1} placeholder="คะแนนรวม" onChange={handleChange} value={formData.total_score} className="p-2 border rounded" />
-            <input name="start_datetime" type="datetime-local" onChange={handleChange} value={formData.start_datetime} className="p-2 border rounded" />
-            <input name="result_date" type="datetime-local" onChange={handleChange} value={formData.result_date} className="p-2 border rounded" />
-            <div className="flex justify-between mt-2">
-              <button onClick={handleSave} className="bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600">บันทึก</button>
-              <button onClick={() => setShowModal(false)} className="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600">ยกเลิก</button>
-            </div>
-          </div>
+                </div>
+            )}
         </div>
-      )}
-    </div>
-  );
+    );
 };
 
 export default ExamSetManager;

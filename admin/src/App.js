@@ -30,6 +30,7 @@ export default function App() {
         <Route path="/UserListManager" element={<UserListManager />}></Route>
         <Route path="/ExamineeID" element={<ExamineeID />}></Route>
         <Route path="/ManageQuestions" element={<ManageQuestions />}></Route>
+        <Route path="/ManageQuestions/:ID" element={<ManageQuestions />}></Route>
       </Routes>
     </BrowserRouter>
   );
