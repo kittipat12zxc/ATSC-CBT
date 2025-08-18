@@ -12,6 +12,7 @@ import ExamSetManager from "./pages/CBT/ExamSetManager";
 import UserListManager from "./pages/CBT/UserListManager";
 import ExamineeID from "./pages/CBT/ExmineeID";
 import ManageQuestions from "./pages/CBT/ManageQuestions";
+import ListOfAdmins from "./pages/CBT/ListOfAdmins";
 
 export default function App() {
   return (
@@ -31,6 +32,7 @@ export default function App() {
         <Route path="/ExamineeID" element={<ExamineeID />}></Route>
         <Route path="/ManageQuestions" element={<ManageQuestions />}></Route>
         <Route path="/ManageQuestions/:ID" element={<ManageQuestions />}></Route>
+        <Route path="/ListOfAdmins" element={<ListOfAdmins />}></Route>
       </Routes>
     </BrowserRouter>
   );
