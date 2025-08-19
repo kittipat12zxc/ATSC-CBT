@@ -58,7 +58,7 @@ router.get("/", async (req, res) => {
     res.status(200).json(rows); 
   } catch (error) {
     console.error("Database query failed:", error);
-    res.status(500).json({ message: "Failed to fetch data from the database." });
+    res.status(500).json({ message: "Failed to fetch data from the database examination" });
   }
 });
 

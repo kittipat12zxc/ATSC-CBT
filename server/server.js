@@ -23,6 +23,7 @@ const Homepage = require('./Routes/CBT/home.js');
 const examsets = require('./Routes/admin/CBT/examsets.js');
 const question = require('./Routes/admin/CBT/questions.js');
 const examinee = require('./Routes/admin/CBT/examinee.js');
+const adminlist = require('./Routes/admin/CBT/adminlist.js')
 
 
 // === MIDDLEWARE ===
@@ -67,6 +68,8 @@ app.use('/api/admin', ListofNames)
 app.use('/api/examsets',examsets);
 app.use('/api/questions', question);
 app.use('/api/examinee', examinee);
+app.use('/api/adminlist',adminlist)
+
 
 
 // === START SERVER ===
