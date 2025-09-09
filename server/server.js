@@ -16,6 +16,7 @@ const explain = require('./Routes/CBT/explain_exam');
 const LoginAdmin = require('./Routes/admin/main/LoginAdmin');
 const RegistrationSystemAdmin = require('./Routes/admin/registration/RegistrationSystemAdmin')
 const ImageUploadRoute = require('./Routes/admin/main/ImageUploadRoute.js');
+const annoceupload = require('./Routes/admin/CBT/annoceupload.js')
 const ListofNames = require('./Routes/admin/registration/listofnames');
 const Homepage = require('./Routes/CBT/home.js');
 
@@ -35,6 +36,7 @@ app.use(cors({
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
 app.use('/images', express.static('uploads'));
+app.use('/images-annouce', express.static('uploads_annnouce'));
 
 // ✅ Static mock API
 app.get('/api/examinations', (req, res) => {
@@ -61,6 +63,7 @@ app.use('/api/cbt', Homepage);
 app.use('/api/admin', LoginAdmin);
 app.use('/api/admin',RegistrationSystemAdmin)
 app.use('/api', ImageUploadRoute);
+app.use('/api', annoceupload);
 app.use('/api/admin', ListofNames)
 
 // ✅ CBT Admin routes

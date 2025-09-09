@@ -58,6 +58,13 @@ function Main() {
                             <span>ผู้เข้าสอบ</span>
                             </Link>
                         </li>
+
+                        <li className="flex items-center rounded-xl text-white transition-all cursor-pointer hover:bg-[#0f3156] hover:shadow-md">
+                            <Link to="/Annoucement" state={AdminID} className="py-2 px-3 text-white w-full flex items-center">
+                            <svg className="mr-2" width="16" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M8.354..." /></svg>
+                            <span>ประชาสัมพันธ์</span>
+                            </Link>
+                        </li>
                     </ul>
 
                     <ul className="list-none mt-2 p-0 m-0">
