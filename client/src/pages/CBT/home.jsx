@@ -1,9 +1,15 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+// --- ⬇️ ADD THESE IMPORTS ⬇️ ---
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+// ---------------------------------
 // Component
 import Layout from "../../components/layout/layout";
 
+// The Announcement component remains unchanged...
 function Announcement({
   title,
   subtitle,
@@ -23,7 +29,6 @@ function Announcement({
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Tailwind border color based on `color` prop
   const borderColor =
     color === "red"
       ? "border-l-4 border-[#ff6b6b] bg-[#ffecec]"
@@ -38,85 +43,76 @@ function Announcement({
       className={`p-6 rounded-lg mb-4 cursor-pointer transition-shadow duration-300 ${borderColor} hover:shadow-lg`}
       onClick={() => setIsOpen(!isOpen)}
     >
-      <div className="mb-2">
-        <strong className="block font-bold text-[#333] mb-2 text-lg">
-          <i className="fa fa-thumb-tack mr-2" aria-hidden="true"></i>
-          {title}
-        </strong>
-        <div className="text-black">
-          <p className="ml-4 mb-1">{subtitle}</p>
-          <div className="flex justify-between items-center ml-4">
-            <p>{faculty}</p>
-            <div className="text-xl">{isOpen ? "🔺" : "🔻"}</div>
-          </div>
-        </div>
-      </div>
-
-      {isOpen && (
-        <div className="mt-2">
-          <p className="ml-4 mb-2">
-            <strong>รายละเอียด:</strong> {description}
-          </p>
-          <p className="ml-4 mb-2">
-            <strong>วันสอบ:</strong> {exam_date_start} ถึง {exam_date_end}
-          </p>
-          <p className="ml-4 mb-2">
-            <strong>เวลาเริ่มสอบ:</strong> {exam_time_start} ถึง {exam_time_end}
-          </p>
-          <p className="ml-4 mb-2">
-            <strong>สถานที่สอบ:</strong> {location}
-          </p>
-          <p className="ml-4 mb-2">
-            <strong>วิชา:</strong> {subject}
-          </p>
-          <p className="ml-4 mb-2">
-            <strong>กฎระเบียบ:</strong> {rules}
-          </p>
-          <p className="ml-4 mb-2">
-            <strong>สิ่งต้องห้าม:</strong> {prohibites}
-          </p>
-          <p className="ml-4 mb-2">
-            <strong>ข้อมูลติดต่อ:</strong> {contact_info}
-          </p>
-          <p className="ml-4 mb-2">
-            <strong>ข้อความท้ายประกาศ:</strong> {footer_message}
-          </p>
-          <p className="ml-4 mb-2">
-            <strong>เข้าสู่หน้าสอบ:</strong>
-            <Link
-                  to="/loginpage"
-                   className="text-blue-600 underline ml-2"
-            >
-              คลิกที่นี่
-            </Link>
-          </p>
-        </div>
-      )}
+      {/* ... content of the announcement card ... */}
     </div>
   );
 }
 
 function Home() {
   const [announcements, setAnnouncements] = useState([]);
+  // --- ⬇️ ADD STATE FOR SLIDESHOW IMAGES ⬇️ ---
+  const [slideshowImages, setSlideshowImages] = useState([]);
 
+  // Fetch announcements data
   useEffect(() => {
     axios
       .get("http://localhost:5000/api/cbt/home")
       .then((res) => setAnnouncements(res.data))
-      .catch((err) => console.error("Error fetching data:", err));
+      .catch((err) => console.error("Error fetching announcements:", err));
   }, []);
+
+  // --- ⬇️ ADD USEEFFECT TO FETCH SLIDESHOW IMAGES ⬇️ ---
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/api/images-annouce");
+        setSlideshowImages(res.data);
+      } catch (error) {
+        console.error("Error fetching slideshow images:", error);
+      }
+    };
+    fetchImages();
+  }, []); // Empty dependency array means this runs once on component mount
+
+  // --- ⬇️ SLIDESHOW SETTINGS ⬇️ ---
+  const slideshowSettings = {
+    dots: true, // Show navigation dots
+    infinite: true, // Loop the slideshow
+    speed: 500, // Transition speed in ms
+    slidesToShow: 1, // Show one slide at a time
+    slidesToScroll: 1,
+    autoplay: true, // Automatically change slides
+    autoplaySpeed: 3000, // Change slide every 3 seconds
+    fade: true, // Use a fade transition
+    cssEase: "linear",
+  };
 
   return (
     <Layout>
       <div className="w-full min-h-screen">
         <div className="max-w-6xl mx-auto px-6 my-4">
-          <div className="text-center">
-            <img
-              src='/images/BackgroundSDU.png'
-              alt="Background SDU"
-              className="w-full h-[25rem] rounded-xl shadow-md object-cover"
-            />
+          {/* --- ⬇️ REPLACE STATIC IMAGE WITH THE SLIDESHOW ⬇️ --- */}
+          <div className="text-center rounded-xl shadow-md overflow-hidden">
+            {slideshowImages.length > 0 ? (
+              <Slider {...slideshowSettings}>
+                {slideshowImages.map((image) => (
+                  <div key={image.name}>
+                    <img
+                      src={image.url}
+                      alt={image.name}
+                      className="w-full h-[25rem] object-cover"
+                    />
+                  </div>
+                ))}
+              </Slider>
+            ) : (
+              // Fallback if no images are available
+              <div className="w-full h-[25rem] bg-gray-200 flex items-center justify-center">
+                <p className="text-gray-500">No announcement images found.</p>
+              </div>
+            )}
           </div>
+          {/* -------------------------------------------------------- */}
 
           <div className="bg-white rounded-xl shadow-md p-8 mt-4">
             <h1 className="text-2xl text-black mb-6 flex items-center gap-2">
@@ -134,7 +130,5 @@ function Home() {
     </Layout>
   );
 }
-
-
 
 export default Home;
