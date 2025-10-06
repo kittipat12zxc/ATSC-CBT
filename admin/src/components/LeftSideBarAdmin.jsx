@@ -26,12 +26,7 @@ const menuItems = [
     text: "ระบบสมัครสอบ",
     href: "/RegistrationSystemAdmin",
   },
-  {
-    id: "scope",
-    icon: <CalendarDays size={22} />,
-    text: "ระบบ CBT",
-    href: "/main",
-  },
+
   {
     id: "design",
     icon: <Settings size={22} />,
@@ -74,6 +69,12 @@ const menuItems = [
     text: "ระบบการประเมินและสรุปผล",
     href: "/",
   },
+  {
+    id: "scope",
+    icon: <CalendarDays size={22} />,
+    text: "ระบบ CBT",
+    href: "/main",
+  },
 ];
 
 const LeftSideBarAdmin = () => {
@@ -96,9 +97,8 @@ const LeftSideBarAdmin = () => {
             href={item.href}
             onClick={() => setActiveItem(item.id)}
             // เพิ่ม relative เพื่อเป็นคอนเทนเนอร์ให้เส้นขีดใต้
-            className={`relative flex items-center rounded-md px-4 py-3 text-base font-medium transition-colors hover:bg-[#3d444a] ${
-              activeItem === item.id ? "bg-[#343a40]" : ""
-            }`}
+            className={`relative flex items-center rounded-md px-4 py-3 text-base font-medium transition-colors hover:bg-[#3d444a] ${activeItem === item.id ? "bg-[#343a40]" : ""
+              }`}
           >
             <span className="mr-4">{item.icon}</span>
             <span>{item.text}</span>

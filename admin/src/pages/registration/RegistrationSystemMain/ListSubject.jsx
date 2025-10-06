@@ -31,11 +31,11 @@ function RegistrationSystemAdmin() {
   }, []);
 
   const colorShade = [ // รับค่าสีทีไปเเสดงใน card 
-    "from-teal-400 via-teal-200 to-teal-100",
-    "from-pink-400 via-pink-300 to-pink-100",
-    "from-green-400 via-green-300 to-green-100",
-    "from-rose-400 via-rose-300 to-rose-100",
-    "from-yellow-400 via-yellow-300 to-yellow-100"
+    "from-slate-800 via-gray-600 to-slate-400",
+    "from-indigo-700 via-purple-500 to-violet-400",
+    "from-blue-800 via-sky-600 to-cyan-400",
+    "from-emerald-700 via-teal-600 to-green-400",
+    "from-zinc-700 via-neutral-500 to-stone-400"
   ]
 
   return (
@@ -61,13 +61,13 @@ function RegistrationSystemAdmin() {
                     <UserIcon className="h-12 w-12 text-white/90" />
                   </div>
                   <div>
-                     <p className="text-xl font-bold ">
+                    <p className="text-xl font-bold ">
                       ชื่อชุดข้อสอบ : {exam.exam_set_name}
                     </p>
                     <p className="text-sm text-white/80">
                       รหัสการสอบ : {exam.examination_id}
                     </p>
-                   
+
                   </div>
                 </div>
               </Link>
