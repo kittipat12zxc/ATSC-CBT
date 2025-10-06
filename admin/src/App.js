@@ -13,6 +13,7 @@ import UserListManager from "./pages/CBT/UserListManager";
 import ExamineeID from "./pages/CBT/ExmineeID";
 import ManageQuestions from "./pages/CBT/ManageQuestions";
 import ListOfAdmins from "./pages/CBT/ListOfAdmins";
+import Annoucement from "./pages/CBT/Annocement";
 
 export default function App() {
   return (
@@ -33,6 +34,7 @@ export default function App() {
         <Route path="/ManageQuestions" element={<ManageQuestions />}></Route>
         <Route path="/ManageQuestions/:ID" element={<ManageQuestions />}></Route>
         <Route path="/ListOfAdmins" element={<ListOfAdmins />}></Route>
+        <Route path="/Annoucement" element={<Annoucement />}></Route>
       </Routes>
     </BrowserRouter>
   );

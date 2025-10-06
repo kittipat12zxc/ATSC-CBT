@@ -40,36 +40,42 @@ function Main() {
                     <ul className="list-none flex-grow flex flex-col gap-2 py-2 m-0">
                         <li className="flex items-center rounded-xl text-white transition-all cursor-pointer hover:bg-[#0f3156] hover:shadow-md">
                             <Link to="/main" state={AdminID} className="py-2 px-3 text-white w-full flex items-center">
-                            <svg className="mr-2" width="16" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M8.354..." /></svg>
-                            <span>หน้าหลัก</span>
+                                <svg className="mr-2" width="16" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M8.354..." /></svg>
+                                <span>หน้าหลัก</span>
                             </Link>
                         </li>
 
                         <li className="flex items-center rounded-xl text-white transition-all cursor-pointer hover:bg-[#0f3156] hover:shadow-md">
                             <Link to="/ExamsetManager" state={AdminID} className="py-2 px-3 text-white w-full flex items-center">
-                            <svg className="mr-2" width="16" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M8.354..." /></svg>
-                            <span>ข้อสอบ</span>
+                                <svg className="mr-2" width="16" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M8.354..." /></svg>
+                                <span>ข้อสอบ</span>
                             </Link>
                         </li>
 
                         <li className="flex items-center rounded-xl text-white transition-all cursor-pointer hover:bg-[#0f3156] hover:shadow-md">
                             <Link to="/UserListManager" state={AdminID} className="py-2 px-3 text-white w-full flex items-center">
-                            <svg className="mr-2" width="16" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M8.354..." /></svg>
-                            <span>ผู้เข้าสอบ</span>
+                                <svg className="mr-2" width="16" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M8.354..." /></svg>
+                                <span>ผู้เข้าสอบ</span>
                             </Link>
                         </li>
 
                         <li className="flex items-center rounded-xl text-white transition-all cursor-pointer hover:bg-[#0f3156] hover:shadow-md">
                             <Link to="/ListOfAdmins" state={AdminID} className="py-2 px-3 text-white w-full flex items-center">
-                            <svg className="mr-2" width="16" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M8.354..." /></svg>
-                            <span>รายชื่อแอดมิน</span>
+                                <svg className="mr-2" width="16" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M8.354..." /></svg>
+                                <span>รายชื่อแอดมิน</span>
                             </Link>
                         </li>
 
-                          <li className="flex items-center rounded-xl text-white transition-all cursor-pointer hover:bg-[#0f3156] hover:shadow-md">
+                        <li className="flex items-center rounded-xl text-white transition-all cursor-pointer hover:bg-[#0f3156] hover:shadow-md">
                             <Link to="/" state={AdminID} className="py-2 px-3 text-white w-full flex items-center">
-                            <svg className="mr-2" width="16" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M8.354..." /></svg>
-                            <span>ประกาศข้อมูล</span>
+                                <svg className="mr-2" width="16" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M8.354..." /></svg>
+                                <span>ประกาศข้อมูล</span>
+                            </Link>
+                        </li>
+                        <li className="flex items-center rounded-xl text-white transition-all cursor-pointer hover:bg-[#0f3156] hover:shadow-md">
+                            <Link to="/Annoucement" state={AdminID} className="py-2 px-3 text-white w-full flex items-center">
+                                <svg className="mr-2" width="16" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M8.354..." /></svg>
+                                <span>ประชาสัมพันธ์</span>
                             </Link>
                         </li>
                     </ul>
@@ -77,8 +83,8 @@ function Main() {
                     <ul className="list-none mt-2 p-0 m-0">
                         <li className="flex items-center rounded-xl text-white transition-all cursor-pointer hover:bg-[#0f3156] hover:shadow-md">
                             <Link to="/" className="py-2 px-3 text-white w-full flex items-center">
-                            <svg className="mr-2" width="16" height="16" fill="currentColor"><path d="..." /></svg>
-                            <span>ออกจากระบบ</span>
+                                <svg className="mr-2" width="16" height="16" fill="currentColor"><path d="..." /></svg>
+                                <span>ออกจากระบบ</span>
                             </Link>
                         </li>
                     </ul>
@@ -91,13 +97,13 @@ function Main() {
                     <div className="flex items-center gap-5 text-[#214E7F]">
                         <button className="text-xl bg-none border-none cursor-pointer transition-transform hover:scale-110" onClick={toggleSidebar}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 448 512">
-                                <path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z"/>
+                                <path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z" />
                             </svg>
                         </button>
                         <h1 className="font-kanit text-xl">หน้าหลัก</h1>
                     </div>
                     <div className="flex items-center gap-2 p-2 rounded-xl w-[250px] bg-white transition hover:bg-[#214E7F] hover:text-white cursor-pointer">
-                        <svg width="25" height="25" fill="currentColor" viewBox="0 0 16 16"><path d="M11 6a3..."/></svg>
+                        <svg width="25" height="25" fill="currentColor" viewBox="0 0 16 16"><path d="M11 6a3..." /></svg>
                         <h5 className="m-0 text-lg font-kanit">{AdminID}</h5>
                     </div>
                 </header>
@@ -126,7 +132,7 @@ function Main() {
                     </div>
                 </div>
             </section>
-        </main>
+        </main >
     );
 }
 

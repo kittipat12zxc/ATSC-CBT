@@ -34,7 +34,8 @@ function RegistrationSystemAdmin() {
     "from-teal-400 via-teal-200 to-teal-100",
     "from-pink-400 via-pink-300 to-pink-100",
     "from-green-400 via-green-300 to-green-100",
-    "from-rose-400 via-rose-300 to-rose-100"
+    "from-rose-400 via-rose-300 to-rose-100",
+    "from-yellow-400 via-yellow-300 to-yellow-100"
   ]
 
   return (
