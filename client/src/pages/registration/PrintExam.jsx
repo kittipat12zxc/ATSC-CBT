@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom"; // ⬅️ เพิ่มสำหรับดึง query param
-import Header from "../../Components/Header/PCHeader";
-import Footer from "../../Components/Footer/Footer";
+import Header from "../../components/Header/PCHeader";
+import Footer from "../../components/Footer/Footer";
 import SideBarRegistration from "./components/SideBarRegistration/SideBarRegistration";
 import axios from "axios";
 import ATSCLogo from "../../assets/atsc.png";

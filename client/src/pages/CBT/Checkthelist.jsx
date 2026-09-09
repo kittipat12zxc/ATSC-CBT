@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Layout from '../../Components/layout/layout';
+import Layout from '../../components/layout/layout';
 
 function Checkthelist() {
   const [thaiIdInput, setThaiIdInput] = useState('');

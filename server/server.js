@@ -19,6 +19,10 @@ const ImageUploadRoute = require('./Routes/admin/main/ImageUploadRoute.js');
 const ListofNames = require('./Routes/admin/registration/listofnames');
 const Homepage = require('./Routes/CBT/home.js');
 
+// import routes for CBT Admin
+const examsets = require('./Routes/admin/CBT/examsets.js');
+const question = require('./Routes/admin/CBT/questions.js');
+const examinee = require('./Routes/admin/CBT/examinee.js');
 
 
 // === MIDDLEWARE ===
@@ -59,6 +63,10 @@ app.use('/api/admin',RegistrationSystemAdmin)
 app.use('/api', ImageUploadRoute);
 app.use('/api/admin', ListofNames)
 
+// ✅ CBT Admin routes
+app.use('/api/examsets',examsets);
+app.use('/api/questions', question);
+app.use('/api/examinee', examinee);
 
 // === START SERVER ===
 app.listen(5000, () => {
