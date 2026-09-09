@@ -82,3 +82,13 @@ npm run dev
 - **Backend Server**: `http://localhost:5000`
 - **Client App**: `http://localhost:3000`
 - **Admin App**: `http://localhost:3001`
+
+## 👥 ทีมพัฒนา (Contributors)
+
+โปรเจคนี้ได้รับการพัฒนาโดย:
+
+- [@FORDTNK](https://github.com/FORDTNK)
+- [@SariverHoMez](https://github.com/SariverHoMez)
+- [@FayOsaka](https://github.com/FayOsaka)
+- [@pongsapakmessi10](https://github.com/pongsapakmessi10)
+- [@Zaint1fy](https://github.com/Zaint1fy)
