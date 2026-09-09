@@ -87,8 +87,10 @@ npm run dev
 
 โปรเจคนี้ได้รับการพัฒนาโดย:
 
+- [@Kittipat12zxc](https://github.com/kittipat12zxc)
 - [@FORDTNK](https://github.com/FORDTNK)
 - [@SariverHoMez](https://github.com/SariverHoMez)
 - [@FayOsaka](https://github.com/FayOsaka)
 - [@pongsapakmessi10](https://github.com/pongsapakmessi10)
 - [@Zaint1fy](https://github.com/Zaint1fy)
+- [@toto-zzz](https://github.com/toto-zzz)
